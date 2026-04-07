@@ -59,17 +59,23 @@ section {
     width: 90%;
     padding-left: 10px;
 }
+.section-header h2 {
+    margin-bottom: 0;
+}
+.section-header p {
+    margin: 5px 0 0px 0;
+    color: #555555;
+}
 .anime-card-wrapper {
     display: flex;
     overflow-x: auto;
     gap: 20px;
-    padding: 20px 10px;
-    scroll-snap-type: x mandatory; /* Optional: snaps cards into place */
+    padding: 10px;
+    scroll-snap-type: x mandatory; /* Snaps cards into place */
     -webkit-overflow-scrolling: touch; /* Adds momentum/inertia to scrolling */
 }
-/* Hide the scrollbar for a cleaner look */
 .anime-card-wrapper::-webkit-scrollbar {
-    display: none;
+    display: none; /* Hide the scrollbar for a cleaner look */
 }
 .anime-card {
     flex: 0 0 350px;
@@ -87,7 +93,7 @@ section {
 .card-content {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: stretch;
     padding: 12px;
     gap: 15px;
 }
@@ -112,6 +118,12 @@ section {
     color: #555555;
     font-size: 0.9rem;
 }
+.stats-container {
+    margin-top: auto;
+}
+.stats-row {
+    margin-bottom: 8px;
+}
 .score-badge {
     background-color: #e8f5e9;
     color: #2e7d32;
@@ -126,9 +138,10 @@ section {
     background-color: #e0e0e0;
     border-radius: 10px;
     overflow: hidden;
-    margin-top: auto;
+    margin: auto 0 4px 0;
 }
 .progress-bar {
+    width: 50%;
     height: 100%;
     background-color: #2E51A2;
     border-radius: 10px;
@@ -139,6 +152,7 @@ section {
     justify-content: center;
     align-items: center;
     gap: 10px;
+    margin-bottom: 10px;
 }
 .icon {
     width: 25px;

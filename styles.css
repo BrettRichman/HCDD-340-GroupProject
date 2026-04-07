@@ -29,7 +29,7 @@ body {
     background-color: #2E51A2;
     color: white;
     width: 100%;
-    padding: 10px;
+    padding: 25px;
     text-align: center;
 }
 .featured {
@@ -59,7 +59,7 @@ section {
     width: 90%;
     padding-left: 10px;
 }
-.airing-wrapper {
+.anime-card-wrapper {
     display: flex;
     overflow-x: auto;
     gap: 20px;
@@ -68,7 +68,7 @@ section {
     -webkit-overflow-scrolling: touch; /* Adds momentum/inertia to scrolling */
 }
 /* Hide the scrollbar for a cleaner look */
-.airing-wrapper::-webkit-scrollbar {
+.anime-card-wrapper::-webkit-scrollbar {
     display: none;
 }
 .anime-card {
@@ -77,6 +77,12 @@ section {
     background: white;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.anime-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 .card-content {
     display: flex;
@@ -86,8 +92,8 @@ section {
     gap: 15px;
 }
 .anime-poster {
-    width: 80px;
-    height: 110px;
+    width: 110px;
+    height: 100%;
     object-fit: cover;
     border-radius: 8px;
 }
@@ -97,6 +103,15 @@ section {
     justify-content: space-between;
     flex: 1;
 }
+.anime-title {
+    margin: 0;
+    line-height: 1.2;
+}
+.anime-subtitle {
+    margin: 5px 0;
+    color: #555555;
+    font-size: 0.9rem;
+}
 .score-badge {
     background-color: #e8f5e9;
     color: #2e7d32;
@@ -104,6 +119,26 @@ section {
     border-radius: 4px;
     font-weight: bold;
     font-size: 0.85rem;
+}
+.progress-container {
+    width: 100%;
+    height: 6px;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: auto;
+}
+.progress-bar {
+    height: 100%;
+    background-color: #2E51A2;
+    border-radius: 10px;
+    transition: width 0.4s ease;
+}
+.socials {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
 .icon {
     width: 25px;

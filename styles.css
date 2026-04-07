@@ -107,3 +107,9 @@ section {
     font-weight: bold;
     font-size: 0.85rem;
 }
+.icon {
+    width: 25px;
+    height: 25px;
+    margin-left: 5px;
+    cursor: pointer;
+}

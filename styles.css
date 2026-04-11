@@ -66,10 +66,10 @@ section {
     overflow-x: auto;
     gap: 20px;
     padding: 20px 10px;
-    scroll-snap-type: x mandatory; /* Optional: snaps cards into place */
-    -webkit-overflow-scrolling: touch; /* Adds momentum/inertia to scrolling */
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; 
 }
-/* Hide the scrollbar for a cleaner look */
+
 .airing-wrapper::-webkit-scrollbar {
     display: none;
 }
@@ -106,4 +106,64 @@ section {
     border-radius: 4px;
     font-weight: bold;
     font-size: 0.85rem;
+}
+.community-hero {
+    width: 90%;
+    margin: 20px auto;
+    background-color: #f0f4ff;
+    border-radius: 12px;
+    padding: 30px 20px;
+}
+
+.community-hero h1 {
+    margin: 0 0 10px 0;
+    font-size: 2rem;
+}
+
+.community-hero p {
+    margin: 0;
+    color: #555;
+}
+
+.trending-wrapper {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    padding: 10px 0;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+}
+
+.trending-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.forum-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.forum-card {
+    background: white;
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.forum-card h3 {
+    margin: 0 0 8px 0;
+    font-size: 1.05rem;
+}
+
+.forum-card p {
+    margin: 0 0 10px 0;
+    color: #666;
+}
+
+.forum-meta {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #2E51A2;
 }

@@ -61,7 +61,7 @@ section {
     width: 90%;
     padding-left: 10px;
 }
-.airing-wrapper {
+.anime-card-wrapper {
     display: flex;
     overflow-x: auto;
     gap: 20px;
@@ -70,7 +70,7 @@ section {
     -webkit-overflow-scrolling: touch; 
 }
 
-.airing-wrapper::-webkit-scrollbar {
+.anime-card-wrapper::-webkit-scrollbar {
     display: none;
 }
 .anime-card {

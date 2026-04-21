@@ -59,23 +59,17 @@ section {
     width: 90%;
     padding-left: 10px;
 }
-.section-header h2 {
-    margin-bottom: 0;
-}
-.section-header p {
-    margin: 5px 0 0px 0;
-    color: #555555;
-}
 .anime-card-wrapper {
     display: flex;
     overflow-x: auto;
     gap: 20px;
-    padding: 10px;
-    scroll-snap-type: x mandatory; /* Snaps cards into place */
-    -webkit-overflow-scrolling: touch; /* Adds momentum/inertia to scrolling */
+    padding: 20px 10px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; 
 }
+
 .anime-card-wrapper::-webkit-scrollbar {
-    display: none; /* Hide the scrollbar for a cleaner look */
+    display: none;
 }
 .anime-card {
     flex: 0 0 350px;

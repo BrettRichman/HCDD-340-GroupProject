@@ -5,8 +5,6 @@
 body {
     padding: 0;
     margin: 0;
-    /* TEMPORARY HEIGHT BELOW TO TEST STICKY POSITION */
-    height: 200vh;
 }
 .header {
     display: flex;
@@ -31,13 +29,12 @@ body {
     background-color: #2E51A2;
     color: white;
     width: 100%;
-    padding: 10px;
+    padding: 25px;
     text-align: center;
 }
 .featured {
-    background-color: #f0f0f0;
     padding: 20px;
-    margin: 20px;
+    margin: 20px auto;
     border-radius: 10px;
 }
 nav ul {
@@ -61,17 +58,23 @@ section {
     width: 90%;
     padding-left: 10px;
 }
+.section-header h2 {
+    margin-bottom: 0;
+}
+.section-header p {
+    margin: 5px 0 0px 0;
+    color: #555555;
+}
 .anime-card-wrapper {
     display: flex;
     overflow-x: auto;
     gap: 20px;
-    padding: 20px 10px;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch; 
+    padding: 10px;
+    scroll-snap-type: x mandatory; /* Snaps cards into place */
+    -webkit-overflow-scrolling: touch; /* Adds momentum/inertia to scrolling */
 }
-
 .anime-card-wrapper::-webkit-scrollbar {
-    display: none;
+    display: none; /* Hide the scrollbar for a cleaner look */
 }
 .anime-card {
     flex: 0 0 350px;
@@ -79,17 +82,23 @@ section {
     background: white;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.anime-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 .card-content {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: stretch;
     padding: 12px;
     gap: 15px;
 }
 .anime-poster {
-    width: 80px;
-    height: 110px;
+    width: 110px;
+    height: 100%;
     object-fit: cover;
     border-radius: 8px;
 }
@@ -99,6 +108,21 @@ section {
     justify-content: space-between;
     flex: 1;
 }
+.anime-title {
+    margin: 0;
+    line-height: 1.2;
+}
+.anime-subtitle {
+    margin: 5px 0;
+    color: #555555;
+    font-size: 0.9rem;
+}
+.stats-container {
+    margin-top: auto;
+}
+.stats-row {
+    margin-bottom: 8px;
+}
 .score-badge {
     background-color: #e8f5e9;
     color: #2e7d32;
@@ -107,63 +131,92 @@ section {
     font-weight: bold;
     font-size: 0.85rem;
 }
-.community-hero {
-    width: 90%;
-    margin: 20px auto;
-    background-color: #f0f4ff;
-    border-radius: 12px;
-    padding: 30px 20px;
+.progress-container {
+    width: 100%;
+    height: 6px;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: auto 0 4px 0;
 }
-
-.community-hero h1 {
-    margin: 0 0 10px 0;
-    font-size: 2rem;
+.progress-bar {
+    width: 50%;
+    height: 100%;
+    background-color: #2E51A2;
+    border-radius: 10px;
+    transition: width 0.4s ease;
 }
-
-.community-hero p {
-    margin: 0;
-    color: #555;
-}
-
-.trending-wrapper {
+.socials {
     display: flex;
-    overflow-x: auto;
-    gap: 20px;
-    padding: 10px 0;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.icon {
+    width: 25px;
+    height: 25px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+.carousel {
+  position: relative;
+  width: 100%;
 }
 
-.trending-wrapper::-webkit-scrollbar {
-    display: none;
+.carousel-slide {
+  display: none;
+  animation: none;
 }
 
-.forum-list {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-bottom: 30px;
+.carousel-slide.active {
+  display: block;
+  animation: fadeIn 0.6s ease-in-out;
 }
 
-.forum-card {
-    background: white;
-    border-radius: 12px;
-    padding: 18px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+.carousel-slide {
+  animation: none;
+}
+.carousel-slide.active {
+  animation: fadeIn 0.6s ease-in-out;
 }
 
-.forum-card h3 {
-    margin: 0 0 8px 0;
-    font-size: 1.05rem;
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
-.forum-card p {
-    margin: 0 0 10px 0;
-    color: #666;
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.4);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-size: 18px;
+  z-index: 10;
 }
+.prev { left: 10px; }
+.next { right: 10px; }
 
-.forum-meta {
-    font-size: 0.9rem;
-    font-weight: 600;
+.carousel-dots {
+  text-align: center;
+  padding: 10px 0;
+}
+.dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin: 0 4px;
+  background: #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.dot.active { background: #333; }
+
+.blue-bold {
     color: #2E51A2;
+    font-weight: bold;
 }

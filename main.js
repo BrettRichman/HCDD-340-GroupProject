@@ -33,3 +33,6 @@ function resetTimer() {
 }
 
 resetTimer();
+
+document.querySelector('.prev').addEventListener('click', () => goTo(current - 1));
+document.querySelector('.next').addEventListener('click', () => goTo(current + 1));

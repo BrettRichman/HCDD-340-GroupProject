@@ -1,9 +1,11 @@
 {
-    "name": "PWA for HCDD 340",
-    "short_name": "HCDD 340",
+    "name": "MyAnimeList",
+    "short_name": "MAL",
     "description": "A social networking and cataloging application for anime and manga",
     "start_url": "/index.html",
     "display": "minimal-ui",
+    "theme_color": "#2E51A2",
+    "background_color": "#ffffff",
     "icons": [
         {
             "src": "https://upload.wikimedia.org/wikipedia/commons/7/7a/MyAnimeList_Logo.png",

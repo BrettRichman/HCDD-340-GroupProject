@@ -11,19 +11,17 @@ async function loadCarousel() {
     slide.innerHTML = `
       <article class="anime-card">
         <div class="card-content">
-          <img src="${anime.images.jpg.image_url}" alt="${anime.title}" class="anime-poster">
-          <div class="anime-info">
-            <h3 class="anime-title">${anime.title}</h3>
-            <p class="anime-subtitle">${anime.title_japanese ?? ''}</p>
-            <div>
-              Rank<span class="blue-bold"> #${anime.rank ?? 'N/A'}</span>
-            </div>
-            <div>
-              Popularity<span class="blue-bold"> #${anime.popularity ?? 'N/A'}</span>
-            </div>
-            <div class="stats-row">
-              <span class="score-badge">${anime.score ?? 'N/A'}</span>
-              <span class="episode-count">Episodes: ${anime.episodes ?? '???'}</span>
+          <div class="card-top">
+            <img src="${anime.images.jpg.image_url}" alt="${anime.title}" class="anime-poster">
+            <div class="anime-info">
+              <h3 class="anime-title">${anime.title}</h3>
+              <p class="anime-subtitle">${anime.title_japanese ?? ''}</p>
+              <div>Rank<span class="blue-bold"> #${anime.rank ?? 'N/A'}</span></div>
+              <div>Popularity<span class="blue-bold"> #${anime.popularity ?? 'N/A'}</span></div>
+              <div class="stats-row">
+                <span class="score-badge">${anime.score ?? 'N/A'}</span>
+                <span class="episode-count">Episodes: ${anime.episodes ?? '???'}</span>
+              </div>
             </div>
           </div>
           <div class="anime-synopsis">

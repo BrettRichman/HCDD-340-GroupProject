@@ -55,8 +55,9 @@ nav a:hover {
     color: #2E51A2;
 }
 section {
-    width: 90%;
+    width: 100%;
     padding-left: 10px;
+    overflow: hidden;
 }
 .section-header h2 {
     margin-bottom: 0;
@@ -69,7 +70,7 @@ section {
     display: flex;
     overflow-x: auto;
     gap: 20px;
-    padding: 10px;
+    padding: 10px 0 10px 10px;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
 }
@@ -95,6 +96,9 @@ section {
     align-items: stretch;
     padding: 12px;
     gap: 15px;
+}
+.card-top {
+  display: contents;
 }
 .anime-poster {
     width: 110px;
@@ -244,10 +248,6 @@ section {
 }
 
 @media (prefers-color-scheme: dark) {
-  
-}
-
-@media (prefers-color-scheme: dark) {
     .header {
         background-color: #222222;
     }
@@ -283,4 +283,28 @@ section {
         border-left-color: #444444;
         color: white;
     }
+}
+
+@media (max-width: 480px) {
+  .card-top {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+  }
+
+  .card-content {
+    flex-direction: column;
+  }
+
+  /* Temporary card height fix, make it so that they're always the same height later */
+  .carousel-card-area {
+    height: auto;
+  }
+
+  .anime-synopsis {
+    border-left: none;
+    border-top: 1px solid #e0e0e0;
+    padding-left: 0;
+    padding-top: 15px;
+  }
 }

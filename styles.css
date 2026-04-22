@@ -189,6 +189,7 @@ section {
 
 .carousel-card-area {
   position: relative;
+  height: 200px;
 }
 
 .carousel-btn {
@@ -222,11 +223,28 @@ section {
   border-radius: 50%;
   cursor: pointer;
 }
-.dot.active { background: #333; }
+.dot.active { background: #2E51A2; }
 
 .blue-bold {
     color: #2E51A2;
     font-weight: bold;
+}
+
+.anime-synopsis {
+  flex: 2;
+  border-left: 1px solid #e0e0e0;
+  padding-left: 15px;
+  font-size: 0.85rem;
+  color: #555555;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  line-clamp: 5;
+  -webkit-box-orient: vertical;
+}
+
+@media (prefers-color-scheme: dark) {
+  
 }
 
 @media (prefers-color-scheme: dark) {
@@ -250,5 +268,19 @@ section {
     .score-badge {
         background-color: #1b5e20;
         color: #a5d6a7;
+    }
+
+    .carousel-btn {
+        background: rgba(255,255,255,0.4);
+        color: #222222;
+    }
+
+    .carousel-btn:hover {
+        background: rgba(255,255,255,0.6);
+    }
+
+    .anime-synopsis {
+        border-left-color: #444444;
+        color: white;
     }
 }

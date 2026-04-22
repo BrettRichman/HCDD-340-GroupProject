@@ -1,0 +1,13 @@
+{
+    "name": "PWA for HCDD 340",
+    "short_name": "HCDD 340",
+    "description": "A social networking and cataloging application for anime and manga",
+    "start_url": "/index.html",
+    "display": "minimal-ui",
+    "icons": [
+        {
+            "src": "https://upload.wikimedia.org/wikipedia/commons/7/7a/MyAnimeList_Logo.png",
+            "sizes": "96x96"
+        }
+    ]
+}

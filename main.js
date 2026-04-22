@@ -1,5 +1,5 @@
 async function loadCarousel() {
-  const response = await fetch('https://api.jikan.moe/v4/top/anime?filter=airing&limit=3');
+  const response = await fetch('https://api.jikan.moe/v4/top/anime?filter=bypopularity&limit=10');
   const data = await response.json();
   const slidesContainer = document.querySelector('.carousel-card-area');
 
@@ -15,13 +15,19 @@ async function loadCarousel() {
           <div class="anime-info">
             <h3 class="anime-title">${anime.title}</h3>
             <p class="anime-subtitle">${anime.title_japanese ?? ''}</p>
+            <div>
+              Rank<span class="blue-bold"> #${anime.rank ?? 'N/A'}</span>
+            </div>
+            <div>
+              Popularity<span class="blue-bold"> #${anime.popularity ?? 'N/A'}</span>
+            </div>
             <div class="stats-row">
               <span class="score-badge">${anime.score ?? 'N/A'}</span>
-              <span class="episode-count">EP ? / ${anime.episodes ?? '???'}</span>
+              <span class="episode-count">Episodes: ${anime.episodes ?? '???'}</span>
             </div>
-            <div class="progress-container">
-              <div class="progress-bar" style="width: 50%;"></div>
-            </div>
+          </div>
+          <div class="anime-synopsis">
+            <p>${anime.synopsis ?? 'No synopsis available.'}</p>
           </div>
         </div>
       </article>

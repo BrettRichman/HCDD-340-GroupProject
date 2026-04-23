@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2E51A2">
+  <title>Profile - MyAnimeList</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+  <link rel="manifest" href="pwa-manifest.json">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+
+    <span>
+      <span class="brand">MyAnimeList</span>
+        <nav>
+        <ul>
+            <button id="theme-toggle">🌙</button>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="browse.html">Browse</a></li>
+            <li><a href="community.html">Community</a></li>
+            <li><a href="profile.html" class="active-link">Profile</a></li>
+        </ul>
+        </nav>
+    </span>
+  </header>
+    
+  <main class="profile-page">
+  <section class="profile-header profile-shell">
+    <div class="profile-banner"></div>
+    <div class="profile-info-row">
+      <div class="avatar" aria-hidden="true">U</div>
+
+      <div class="user-details">
+        <h1 id="profile-name">Username</h1>
+        <p id="profile-tagline">Anime Enthusiast</p>
+      </div>
+
+      <div class="profile-quick-stats">
+        <div>
+          <span class="quick-label">Shows</span>
+          <strong id="quick-total-entries">0</strong>
+        </div>
+        <div>
+          <span class="quick-label">Episodes</span>
+          <strong id="quick-total-episodes">0</strong>
+        </div>
+        <div>
+          <span class="quick-label">Mean Score</span>
+          <strong id="quick-mean-score">0.0</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <section class="profile-grid">
+      <article class="profile-card bio-card">
+        <div class="card-heading-row">
+        <div>
+        <p class="eyebrow">About Me</p>
+        <h2>Biography</h2>
+        </div>
+        <div class="bio-actions">
+        <button class="secondary-btn" id="save-bio-btn" type="button">Save</button>
+        </div>
+        </div>
+
+    <textarea id="bio-input" class="bio-input" rows="6"></textarea>
+    </article>
+
+    <article class="profile-card stats-card">
+        <div class="card-heading-row">
+        <div>
+            <p class="eyebrow">Anime Statistics</p>
+            <h2>Your List Breakdown</h2>
+        </div>
+        </div>
+
+        <div id="anime-stats-list" class="stats-stack"></div>
+
+        <div class="totals-grid">
+          <div class="total-chip">
+            <span>Total Entries</span>
+            <strong id="total-entries">0</strong>
+          </div>
+          <div class="total-chip">
+            <span>Episodes Watched</span>
+            <strong id="episodes-watched">0</strong>
+          </div>
+          <div class="total-chip">
+            <span>Completed Shows</span>
+            <strong id="completed-total">0</strong>
+          </div>
+          <div class="total-chip">
+            <span>Average Score</span>
+            <strong id="average-score">0.0</strong>
+          </div>
+        </div>
+      </article>
+
+      <article class="profile-card updates-card">
+        <div class="card-heading-row">
+          <div>
+            <p class="eyebrow">Latest Activity</p>
+            <h2>Recent List Updates</h2>
+          </div>
+          <a href="browse.html" class="text-link">Update anime list</a>
+        </div>
+        <div id="recent-updates" class="updates-list"></div>
+      </article>
+
+      <article class="profile-card friends-card">
+        <div class="card-heading-row">
+          <div>
+            <p class="eyebrow">Social</p>
+            <h2>Friends</h2>
+          </div>
+            <div class="friend-actions">
+            <span class="friend-count">6 Total</span>
+            <button class="add-friend-btn" type="button">+ Add</button>
+            </div>        
+        </div>
+
+        <div class="friends-grid">
+            <div class="friend">Bad Benito</div>
+            <div class="friend">Yuta</div>
+            <div class="friend">T.T.T.</div>
+            <div class="friend">Josh</div>
+            <div class="friend">Ramona Flowers</div>
+            <div class="friend">Brenda</div>
+        </div>
+      </article>
+    </section>
+  </main>
+
+    <footer class="footer">
+        <div class="socials">
+        <span>Follow Us</span>
+        <img class="icon" src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/facebook-square-black-icon.png" alt="Facebook">
+        <img class="icon" src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/x-social-media-black-icon.png" alt="X">
+        <img class="icon" src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/black-instagram-icon.png" alt="Instagram">
+        <img class="icon" src="https://www.freeiconspng.com/uploads/discord-black-icon-1.png" alt="Discord">
+        </div>
+        <div>MyAnimeList.net is a property of MyAnimeList Co., Ltd. ©2026 All Rights Reserved.</div>
+    </footer>
+
+    <script src="main.js"></script>
+
+</body>
+</html>

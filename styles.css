@@ -55,8 +55,14 @@ nav a:hover {
     color: #2E51A2;
 }
 section {
+<<<<<<< HEAD
     width: 90%;
     padding-left: 10px;
+=======
+    width: 100%;
+    padding-left: 10px;
+    overflow: hidden;
+>>>>>>> f5e566b1217e6ae725cca23d131bdeef9e80f504
 }
 .section-header h2 {
     margin-bottom: 0;
@@ -69,7 +75,11 @@ section {
     display: flex;
     overflow-x: auto;
     gap: 20px;
+<<<<<<< HEAD
     padding: 10px;
+=======
+    padding: 10px 0 10px 10px;
+>>>>>>> f5e566b1217e6ae725cca23d131bdeef9e80f504
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
 }
@@ -96,6 +106,12 @@ section {
     padding: 12px;
     gap: 15px;
 }
+<<<<<<< HEAD
+=======
+.card-top {
+  display: contents;
+}
+>>>>>>> f5e566b1217e6ae725cca23d131bdeef9e80f504
 .anime-poster {
     width: 110px;
     height: 100%;
@@ -189,6 +205,10 @@ section {
 
 .carousel-card-area {
   position: relative;
+<<<<<<< HEAD
+=======
+  height: 200px;
+>>>>>>> f5e566b1217e6ae725cca23d131bdeef9e80f504
 }
 
 .carousel-btn {
@@ -222,13 +242,33 @@ section {
   border-radius: 50%;
   cursor: pointer;
 }
+<<<<<<< HEAD
 .dot.active { background: #333; }
+=======
+.dot.active { background: #2E51A2; }
+>>>>>>> f5e566b1217e6ae725cca23d131bdeef9e80f504
 
 .blue-bold {
     color: #2E51A2;
     font-weight: bold;
 }
 
+<<<<<<< HEAD
+=======
+.anime-synopsis {
+  flex: 2;
+  border-left: 1px solid #e0e0e0;
+  padding-left: 15px;
+  font-size: 0.85rem;
+  color: #555555;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  line-clamp: 5;
+  -webkit-box-orient: vertical;
+}
+
+>>>>>>> f5e566b1217e6ae725cca23d131bdeef9e80f504
 @media (prefers-color-scheme: dark) {
     .header {
         background-color: #222222;
@@ -251,6 +291,7 @@ section {
         background-color: #1b5e20;
         color: #a5d6a7;
     }
+<<<<<<< HEAD
 }
 
 
@@ -364,4 +405,44 @@ section {
     aspect-ratio: 1;
     border-radius: 50%;
     background: #d1d5db;
+=======
+
+    .carousel-btn {
+        background: rgba(255,255,255,0.4);
+        color: #222222;
+    }
+
+    .carousel-btn:hover {
+        background: rgba(255,255,255,0.6);
+    }
+
+    .anime-synopsis {
+        border-left-color: #444444;
+        color: white;
+    }
+}
+
+@media (max-width: 480px) {
+  .card-top {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+  }
+
+  .card-content {
+    flex-direction: column;
+  }
+
+  /* Temporary card height fix, make it so that they're always the same height later */
+  .carousel-card-area {
+    height: auto;
+  }
+
+  .anime-synopsis {
+    border-left: none;
+    border-top: 1px solid #e0e0e0;
+    padding-left: 0;
+    padding-top: 15px;
+  }
+>>>>>>> f5e566b1217e6ae725cca23d131bdeef9e80f504
 }

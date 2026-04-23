@@ -1,122 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <title>Community - MyAnimeList</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2E51A2">
+  <title>Community - MyAnimeList</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+  <link rel="manifest" href="pwa-manifest.json">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="header">
-        <span>
-            MyAnimeList
-            <nav>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="#">Browse</a></li>
-                    <li><a href="community.html">Community</a></li>
-<<<<<<< HEAD
-                    <li><a href="profile.html">Profile</a></li>
-=======
-                    <li><a href="#">Profile</a></li>
->>>>>>> f5e566b1217e6ae725cca23d131bdeef9e80f504
-                </ul>
-            </nav>
-        </span>
-    </div>
+    <header class="header">
 
+    <span>
+      <span class="brand">MyAnimeList</span>
+        <nav>
+        <ul>
+            <button id="theme-toggle">🌙</button>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="browse.html">Browse</a></li>
+            <li><a href="community.html" class="active-link">Community</a></li>
+            <li><a href="profile.html">Profile</a></li>
+        </ul>
+        </nav>
+    </span>
+  </header>
+
+  <main>
     <section class="community-hero">
-        <h1>Community Hub</h1>
-        <p>Join discussions and explore what anime fans are talking about right now.</p>
+      <h1>Community Hub</h1>
+      <p>Join discussions and explore what anime fans are talking about right now.</p>
     </section>
 
     <section>
-        <div class="section-header">
-            <h2>Trending Anime</h2>
-            <p>Anime that are popular in the community right now</p>
-        </div>
+      <div class="section-header">
+        <p class="eyebrow">Community Trending</p>
+        <h2>Trending Anime</h2>
+        <p>Anime that are popular in the community right now.</p>
+      </div>
 
-        <div class="trending-wrapper">
-            <article class="anime-card">
-                <div class="card-content">
-                    <img src="https://myanimelist.net/images/anime/1015/138006.jpg" alt="Poster for Frieren: Beyond Journey's End" class="anime-poster">
-                    <div class="anime-info">
-                        <h3 class="anime-title">Frieren: Beyond Journey's End</h3>
-                        <p class="anime-subtitle">Sousou no Frieren</p>
-                        <div class="stats-row">
-                            <span class="score-badge">9.28</span>
-                            <span class="episode-count">#1 Trending</span>
-                        </div>
-                    </div>
-                </div>
-            </article>
+      <div class="trending-wrapper">
+        <article class="anime-card">
+          <div class="card-content">
+            <img src="https://myanimelist.net/images/anime/1015/138006.jpg" alt="Poster for Frieren: Beyond Journey's End" class="anime-poster">
+            <div class="anime-info">
+              <h3 class="anime-title">Frieren: Beyond Journey's End</h3>
+              <p class="anime-subtitle">Sousou no Frieren</p>
+              <div class="stats-row">
+                <span class="score-badge">9.28</span>
+                <span class="episode-count">#1 Trending</span>
+              </div>
+              <button class="list-save-btn quick-add-btn"
+                data-mal-id="52991"
+                data-title="Sousou no Frieren"
+                data-image="https://myanimelist.net/images/anime/1015/138006.jpg"
+                data-episodes="28"
+                type="button">Add to List</button>
+            </div>
+          </div>
+        </article>
 
-            <article class="anime-card">
-                <div class="card-content">
-                    <img src="https://myanimelist.net/images/anime/1726/155542.jpg" alt="Poster for Witch Hat Atelier" class="anime-poster">
-                    <div class="anime-info">
-                        <h3 class="anime-title">Witch Hat Atelier</h3>
-                        <p class="anime-subtitle">Tongari Boushi no Atelier</p>
-                        <div class="stats-row">
-                            <span class="score-badge">8.81</span>
-                            <span class="episode-count">#2 Trending</span>
-                        </div>
-                    </div>
-                </div>
-            </article>
+        <article class="anime-card">
+          <div class="card-content">
+            <img src="https://myanimelist.net/images/anime/1726/155542.jpg" alt="Poster for Witch Hat Atelier" class="anime-poster">
+            <div class="anime-info">
+              <h3 class="anime-title">Witch Hat Atelier</h3>
+              <p class="anime-subtitle">Tongari Boushi no Atelier</p>
+              <div class="stats-row">
+                <span class="score-badge">8.81</span>
+                <span class="episode-count">#2 Trending</span>
+              </div>
+              <button class="list-save-btn quick-add-btn"
+                data-mal-id="58735"
+                data-title="Witch Hat Atelier"
+                data-image="https://myanimelist.net/images/anime/1726/155542.jpg"
+                data-episodes="13"
+                type="button">Add to List</button>
+            </div>
+          </div>
+        </article>
 
-            <article class="anime-card">
-                <div class="card-content">
-                    <img src="https://myanimelist.net/images/anime/10/47347.jpg" alt="Poster for Attack on Titan" class="anime-poster">
-                    <div class="anime-info">
-                        <h3 class="anime-title">Attack on Titan</h3>
-                        <p class="anime-subtitle">Shingeki no Kyojin</p>
-                        <div class="stats-row">
-                            <span class="score-badge">8.54</span>
-                            <span class="episode-count">#3 Trending</span>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        </div>
+        <article class="anime-card">
+          <div class="card-content">
+            <img src="https://myanimelist.net/images/anime/10/47347.jpg" alt="Poster for Attack on Titan" class="anime-poster">
+            <div class="anime-info">
+              <h3 class="anime-title">Attack on Titan</h3>
+              <p class="anime-subtitle">Shingeki no Kyojin</p>
+              <div class="stats-row">
+                <span class="score-badge">8.54</span>
+                <span class="episode-count">#3 Trending</span>
+              </div>
+              <button class="list-save-btn quick-add-btn"
+                data-mal-id="16498"
+                data-title="Shingeki no Kyojin"
+                data-image="https://myanimelist.net/images/anime/10/47347.jpg"
+                data-episodes="25"
+                type="button">Add to List</button>
+            </div>
+          </div>
+        </article>
+      </div>
     </section>
 
     <section>
-        <div class="section-header">
-            <h2>Forums</h2>
-            <p>Popular conversations from the anime community</p>
-        </div>
+      <div class="section-header">
+        <p class="eyebrow">Discussions</p>
+        <h2>Forums</h2>
+        <p>Popular conversations from the anime community.</p>
+      </div>
 
-        <div class="forum-list">
-            <article class="forum-card">
-                <h3>Best anime of the season?</h3>
-                <p>Fans are debating which current show deserves the top spot this season.</p>
-                <span class="forum-meta">248 replies</span>
-            </article>
+      <div class="forum-list">
+        <article class="forum-card">
+          <h3>Best anime of the season?</h3>
+          <p>Fans are debating which current show deserves the top spot this season.</p>
+          <span class="forum-meta">248 replies</span>
+        </article>
 
-            <article class="forum-card">
-                <h3>Most underrated fantasy anime</h3>
-                <p>Users are sharing hidden gems that deserve more recognition.</p>
-                <span class="forum-meta">183 replies</span>
-            </article>
+        <article class="forum-card">
+          <h3>Most underrated fantasy anime</h3>
+          <p>Users are sharing hidden gems that deserve more recognition.</p>
+          <span class="forum-meta">183 replies</span>
+        </article>
 
-            <article class="forum-card">
-                <h3>Anime openings you never skip</h3>
-                <p>A discussion about the most iconic openings and songs in anime.</p>
-                <span class="forum-meta">312 replies</span>
-            </article>
+        <article class="forum-card">
+          <h3>Anime openings you never skip</h3>
+          <p>A discussion about the most iconic openings and songs in anime.</p>
+          <span class="forum-meta">312 replies</span>
+        </article>
 
-            <article class="forum-card">
-                <h3>What should I watch after Frieren?</h3>
-                <p>Recommendations for viewers looking for similar emotional fantasy series.</p>
-                <span class="forum-meta">129 replies</span>
-            </article>
-        </div>
+        <article class="forum-card">
+          <h3>What should I watch after Frieren?</h3>
+          <p>Recommendations for viewers looking for similar emotional fantasy series.</p>
+          <span class="forum-meta">129 replies</span>
+        </article>
+      </div>
     </section>
+  </main>
 
-    <div class="footer">Footer</div>
+  <footer class="footer">
+    <div class="socials">
+      <span>Follow Us</span>
+      <img class="icon" src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/facebook-square-black-icon.png" alt="Facebook">
+      <img class="icon" src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/x-social-media-black-icon.png" alt="X">
+      <img class="icon" src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/black-instagram-icon.png" alt="Instagram">
+      <img class="icon" src="https://www.freeiconspng.com/uploads/discord-black-icon-1.png" alt="Discord">
+    </div>
+    <div>MyAnimeList.net is a property of MyAnimeList Co., Ltd. ©2026 All Rights Reserved.</div>
+  </footer>
+
+  <script src="main.js"></script>
+  
 </body>
 </html>

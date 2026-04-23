@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2E51A2">
+  <title>Browse - MyAnimeList</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+  <link rel="manifest" href="pwa-manifest.json">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+
+    <span>
+      <span class="brand">MyAnimeList</span>
+        <nav>
+        <ul>
+            <button id="theme-toggle">🌙</button>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="browse.html" class="active-link">Browse</a></li>
+            <li><a href="community.html">Community</a></li>
+            <li><a href="profile.html">Profile</a></li>
+        </ul>
+        </nav>
+    </span>
+  </header>
+
+  <main class="browse-page">
+    <section class="browse-hero">
+      <div>
+        <p class="eyebrow">Build Your Anime List</p>
+        <h1>Browse and track top anime</h1>
+        <p>Add new shows to your list, track episode progress, and leave a rating.</p>
+      </div>
+
+      <div class="browse-actions">
+        <input id="browse-search" class="browse-search" type="search" placeholder="Search anime">
+        <select id="status-filter" class="browse-filter">
+          <option value="all">All anime</option>
+          <option value="Watching">Watching</option>
+          <option value="Completed">Completed</option>
+          <option value="On-Hold">On-Hold</option>
+          <option value="Dropped">Dropped</option>
+          <option value="Plan to Watch">Plan to Watch</option>
+        </select>
+      </div>
+    </section>
+
+    <section>
+      <div id="browse-grid" class="browse-grid"></div>
+    </section>
+  </main>
+
+    <footer class="footer">
+    <div class="socials">
+      <span>Follow Us</span>
+      <img class="icon" src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/facebook-square-black-icon.png" alt="Facebook">
+      <img class="icon" src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/x-social-media-black-icon.png" alt="X">
+      <img class="icon" src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/black-instagram-icon.png" alt="Instagram">
+      <img class="icon" src="https://www.freeiconspng.com/uploads/discord-black-icon-1.png" alt="Discord">
+    </div>
+    <div>MyAnimeList.net is a property of MyAnimeList Co., Ltd. ©2026 All Rights Reserved.</div>
+    </footer>
+
+    <script src="main.js"></script>
+
+</body>
+</html>

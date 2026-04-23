@@ -1,0 +1,367 @@
+* {
+    font-family: "Manrope", sans-serif;
+    box-sizing: border-box;
+}
+body {
+    padding: 0;
+    margin: 0;
+}
+.header {
+    display: flex;
+    background-color: white;
+    padding: 10px;
+    width: 100%;
+    height: 70px;
+    justify-content: space-between;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    box-shadow: 5px 5px 15px 0px rgba(0, 0, 0, 0.20);
+    z-index: 100;
+}
+.header > span {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+.footer {
+    background-color: #2E51A2;
+    color: white;
+    width: 100%;
+    padding: 25px;
+    text-align: center;
+}
+.featured {
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 10px;
+}
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+nav a {
+    text-decoration: none;
+    color: inherit;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+nav a:hover {
+    color: #2E51A2;
+}
+section {
+    width: 90%;
+    padding-left: 10px;
+}
+.section-header h2 {
+    margin-bottom: 0;
+}
+.section-header p {
+    margin: 5px 0 0px 0;
+    color: #555555;
+}
+.anime-card-wrapper {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    padding: 10px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+}
+.anime-card-wrapper::-webkit-scrollbar {
+    display: none;
+}
+.anime-card {
+    flex: 0 0 350px;
+    scroll-snap-align: start;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.anime-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+.card-content {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    padding: 12px;
+    gap: 15px;
+}
+.anime-poster {
+    width: 110px;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+.anime-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+}
+.anime-title {
+    margin: 0;
+    line-height: 1.2;
+}
+.anime-subtitle {
+    margin: 5px 0;
+    color: #555555;
+    font-size: 0.9rem;
+}
+.stats-container {
+    margin-top: auto;
+}
+.stats-row {
+    margin-bottom: 8px;
+}
+.score-badge {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 0.85rem;
+}
+.progress-container {
+    width: 100%;
+    height: 6px;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: auto 0 4px 0;
+}
+.progress-bar {
+    width: 50%;
+    height: 100%;
+    background-color: #2E51A2;
+    border-radius: 10px;
+    transition: width 0.4s ease;
+}
+.socials {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.icon {
+    width: 25px;
+    height: 25px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+.carousel {
+  position: relative;
+  width: 100%;
+}
+
+.carousel-slide {
+  display: none;
+  animation: none;
+  position: relative;
+}
+
+.carousel-slide.active {
+  display: block;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+.carousel-slide {
+  animation: none;
+}
+.carousel-slide.active {
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.carousel-card-area {
+  position: relative;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.4);
+  color: white;
+  border: none;
+  padding: 5px 8px;
+  cursor: pointer;
+  font-size: 18px;
+  z-index: 10;
+}
+.carousel-btn:hover {
+  background: rgba(0,0,0,0.6);
+}
+.prev { left: 10px; }
+.next { right: 10px; }
+
+.carousel-dots {
+  text-align: center;
+  padding: 10px 0;
+}
+.dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin: 0 4px;
+  background: #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.dot.active { background: #333; }
+
+.blue-bold {
+    color: #2E51A2;
+    font-weight: bold;
+}
+
+@media (prefers-color-scheme: dark) {
+    .header {
+        background-color: #222222;
+    }
+
+    .anime-card {
+        background: #2a2a2a;
+    }
+
+    .anime-subtitle, .section-header p {
+        color: #aaaaaa;
+    }
+
+    body {
+        background-color: #121212;
+        color: #eeeeee;
+    }
+
+    .score-badge {
+        background-color: #1b5e20;
+        color: #a5d6a7;
+    }
+}
+
+
+/* PROFILE PAGE */
+.profile-page {
+    width: 90%;
+    margin: 20px auto;
+}
+
+/* HEADER */
+.profile-header {
+    background: #1f2937;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.profile-banner {
+    height: 120px;
+    background: linear-gradient(135deg, #2E51A2, #4f7cff);
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+}
+
+.avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: #ccc;
+    border: 3px solid white;
+    margin-top: -40px;
+}
+
+.user-details h2 {
+    margin: 0;
+}
+
+.user-details p {
+    margin: 0;
+    opacity: 0.8;
+}
+
+/* CONTENT LAYOUT */
+.profile-content {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* CARD */
+.profile-card {
+    flex: 1;
+    min-width: 300px;
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* STAT BARS */
+.stat-bar {
+    display: grid;
+    grid-template-columns: 120px 1fr 40px;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+.bar {
+    background: #e5e7eb;
+    height: 8px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.fill {
+    height: 100%;
+    border-radius: 10px;
+}
+
+/* COLORS */
+.fill.watching { width: 20%; background: #22c55e; }
+.fill.completed { width: 60%; background: #3b82f6; }
+.fill.on-hold { width: 10%; background: #f59e0b; }
+.fill.dropped { width: 5%; background: #ef4444; }
+.fill.plan-to-watch { width: 80%; background: #8b5cf6; }
+
+/* TOTALS */
+.totals {
+    margin-top: 15px;
+    font-size: 0.9rem;
+}
+
+/* FRIENDS */
+.friends-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.friend {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #d1d5db;
+}

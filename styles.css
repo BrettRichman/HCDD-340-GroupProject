@@ -897,3 +897,19 @@ section {
 .friend:nth-child(4) { background: #4ade80; }
 .friend:nth-child(5) { background: #60a5fa; }
 .friend:nth-child(6) { background: #a78bfa; }
+
+#theme-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.icon-sun { display: none; }
+.icon-moon { display: block; }
+
+body.dark .icon-sun { display: block; }
+body.dark .icon-moon { display: none; }

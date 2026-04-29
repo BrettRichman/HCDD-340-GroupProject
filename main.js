@@ -266,6 +266,7 @@ function renderProfilePage() {
   recentUpdates.innerHTML = latest.length
     ? latest.map(item => `
         <div class="update-row">
+          <img src="${item.image}" alt="${item.title}" class="update-poster">
           <div class="update-copy">
             <h3>${item.title}</h3>
             <p>${item.status} · ${item.watchedEpisodes}/${item.episodes || '?'} episodes · Score ${item.score || '-'}</p>
@@ -294,7 +295,7 @@ function createCarouselSlide(anime, active = false) {
         <img src="${anime.images.jpg.image_url}" alt="${anime.title}" class="hero-poster">
 
         <div class="hero-copy">
-          <span class="rank-pill">#${anime.rank ?? 'N/A'} Popular</span>
+          <span class="rank-pill">#${anime.popularity ?? 'N/A'} Popular</span>
           <h3 class="hero-title">${anime.title}</h3>
           <p class="anime-subtitle">${anime.title_japanese ?? ''}</p>
 
@@ -613,9 +614,6 @@ function setTheme(theme) {
   document.body.classList.remove('light', 'dark');
   document.body.classList.add(theme);
   localStorage.setItem('theme', theme);
-
-  // 🔥 Update icon
-  toggleBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
 }
 
 toggleBtn?.addEventListener('click', () => {

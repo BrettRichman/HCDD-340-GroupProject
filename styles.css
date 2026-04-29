@@ -913,3 +913,22 @@ section {
 
 body.dark .icon-sun { display: block; }
 body.dark .icon-moon { display: none; }
+
+.update-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.update-poster {
+  width: 45px;
+  height: 65px;
+  object-fit: cover;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.update-meta {
+  margin-left: auto;
+  flex-shrink: 0;
+}

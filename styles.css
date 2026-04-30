@@ -309,6 +309,20 @@ section {
   flex-wrap: wrap;
 }
 
+.profile-quick-stats {
+  flex-wrap: nowrap;
+}
+
+.profile-quick-stats > div {
+  min-width: unset;
+  flex: 1;
+  padding: 10px;
+}
+
+.quick-label {
+  font-size: 0.75rem;
+}
+
 .score-badge,
 .rank-pill,
 .status-pill {
@@ -856,8 +870,7 @@ section {
   }
 
   .totals-grid,
-  .browse-form-grid,
-  .stat-row {
+  .browse-form-grid {
     grid-template-columns: 1fr;
   }
 

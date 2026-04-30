@@ -276,9 +276,9 @@ function renderProfilePage() {
   recentUpdates.innerHTML = latest.length
     ? latest.map(item => `
         <div class="update-row">
-          <img src="${item.image}" alt="${item.title}" class="update-poster">
+          <img src="${item.image}" alt="${item.title_english ?? item.title}" class="update-poster">
           <div class="update-copy">
-            <h3>${item.title}</h3>
+            <h3>${item.title_english ?? item.title}</h3>
             <p>${item.status} · ${item.watchedEpisodes}/${item.episodes || '?'} episodes · Score ${item.score || '-'}</p>
           </div>
           <span class="update-meta">${formatDate(item.updatedAt)}</span>

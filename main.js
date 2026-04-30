@@ -459,12 +459,14 @@ async function renderBrowsePage() {
 
   let animeData = [];
   const searchInput = document.getElementById('browse-search');
-  const statusFilter = document.getElementById('status-filter');
+  const statusWrap = document.getElementById('status-filter-wrap');
+  const genreWrap = document.getElementById('genre-filter-wrap');
+
+  if (!searchInput || !statusWrap || !genreWrap) return;
 
   try {
     const response = await fetch('https://api.jikan.moe/v4/top/anime?filter=bypopularity&limit=20');
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
-
     const data = await response.json();
     animeData = Array.isArray(data.data) ? data.data : [];
   } catch (error) {
@@ -473,30 +475,76 @@ async function renderBrowsePage() {
     return;
   }
 
+  [statusWrap, genreWrap].forEach(wrap => {
+    const btn = wrap.querySelector('.multi-filter-btn');
+    const dropdown = wrap.querySelector('.multi-filter-dropdown');
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      dropdown.classList.toggle('open');
+    });
+  });
+
+  document.addEventListener('click', e => {
+    [statusWrap, genreWrap].forEach(wrap => {
+      if (!wrap.contains(e.target)) {
+        wrap.querySelector('.multi-filter-dropdown').classList.remove('open');
+      }
+    });
+  });
+
+  function getChecked(wrap) {
+    return [...wrap.querySelectorAll('input[type=checkbox]:checked')].map(cb => ({
+      value: cb.value,
+      label: cb.closest('label').textContent.trim()
+    }));
+  }
+
+  function updateBtnLabel(wrap, defaultLabel) {
+    const checked = getChecked(wrap);
+    const label = checked.length ? checked.map(c => c.label).join(', ') : defaultLabel;
+    wrap.querySelector('.multi-filter-btn').innerHTML =
+      `<span>${label}</span><span>▾</span>`;
+  }
+
+  statusWrap.querySelectorAll('input').forEach(cb => cb.addEventListener('change', () => {
+    updateBtnLabel(statusWrap, 'All Statuses');
+    drawCards();
+  }));
+
+  genreWrap.querySelectorAll('input').forEach(cb => cb.addEventListener('change', () => {
+    updateBtnLabel(genreWrap, 'All Genres');
+    drawCards();
+  }));
+
+  searchInput.addEventListener('input', drawCards);
+
   function drawCards() {
     const query = searchInput.value.trim().toLowerCase();
-    const selectedStatus = statusFilter.value;
+    const selectedStatuses = getChecked(statusWrap).map(c => c.value);
+    const selectedGenres = getChecked(genreWrap).map(c => c.value);
     const entryMap = getEntryMap();
 
     const filtered = animeData.filter(anime => {
       const entry = entryMap.get(anime.mal_id);
+
       const titleMatch =
         anime.title.toLowerCase().includes(query) ||
-        (anime.title_japanese || '').toLowerCase().includes(query)||
+        (anime.title_japanese || '').toLowerCase().includes(query) ||
         (anime.title_english || '').toLowerCase().includes(query);
 
-      let statusMatch = true;
-      if (selectedStatus === 'untracked') {
-        statusMatch = !entry;
-      } else if (selectedStatus !== 'all') {
-        statusMatch = !!entry && entry.status === selectedStatus;
-      }
+      const statusMatch = selectedStatuses.length === 0 ||
+        selectedStatuses.includes(entry?.status ?? '');
 
-      return titleMatch && statusMatch;
+      const genreMatch = selectedGenres.length === 0 ||
+        selectedGenres.some(id => (anime.genres || []).some(g => String(g.mal_id) === id));
+
+      return titleMatch && statusMatch && genreMatch;
     });
 
-    browseGrid.innerHTML = filtered.length
-      ? filtered.map(anime => {
+    const displayed = filtered.slice(0, 20);
+
+    browseGrid.innerHTML = displayed.length
+      ? displayed.map(anime => {
           const existing = entryMap.get(anime.mal_id);
 
           return `
@@ -545,9 +593,9 @@ async function renderBrowsePage() {
                 <label>
                   Score
                   <select class="anime-score">
-                    ${Array.from({ length: 11 }, (_, index) => `
-                      <option value="${index}" ${Number(existing?.score ?? 0) === index ? 'selected' : ''}>
-                        ${index === 0 ? 'No score' : index}
+                    ${Array.from({ length: 11 }, (_, i) => `
+                      <option value="${i}" ${Number(existing?.score ?? 0) === i ? 'selected' : ''}>
+                        ${i === 0 ? 'No score' : i}
                       </option>
                     `).join('')}
                   </select>
@@ -565,19 +613,19 @@ async function renderBrowsePage() {
         const parent = event.currentTarget.closest('.browse-form-grid');
         const animeId = Number(parent.dataset.animeId);
         const anime = animeData.find(item => item.mal_id === animeId);
-
         if (!anime) return;
 
         const status = parent.querySelector('.anime-status').value;
         const score = Number(parent.querySelector('.anime-score').value);
         let watchedEpisodes = Number(parent.querySelector('.anime-progress').value);
         const maxEpisodes = anime.episodes || 9999;
-
         watchedEpisodes = Math.max(0, Math.min(watchedEpisodes, maxEpisodes));
 
         upsertAnimeEntry({
           mal_id: anime.mal_id,
           title: anime.title,
+          title_english: anime.title_english ?? '',
+          title_japanese: anime.title_japanese ?? '',
           image: anime.images.jpg.image_url,
           episodes: anime.episodes || 0,
           status,
@@ -586,15 +634,11 @@ async function renderBrowsePage() {
         });
 
         button.textContent = 'Saved';
-        setTimeout(() => {
-          button.textContent = 'Save Entry';
-        }, 1000);
+        setTimeout(() => { button.textContent = 'Save Entry'; }, 1000);
       });
     });
   }
 
-  searchInput.addEventListener('input', drawCards);
-  statusFilter.addEventListener('change', drawCards);
   drawCards();
 }
 

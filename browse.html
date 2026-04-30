@@ -57,14 +57,34 @@
 
       <div class="browse-actions">
         <input id="browse-search" class="browse-search" type="search" placeholder="Search anime">
-        <select id="status-filter" class="browse-filter">
-          <option value="all">All anime</option>
-          <option value="Watching">Watching</option>
-          <option value="Completed">Completed</option>
-          <option value="On-Hold">On-Hold</option>
-          <option value="Dropped">Dropped</option>
-          <option value="Plan to Watch">Plan to Watch</option>
-        </select>
+        <div class="multi-filter" id="status-filter-wrap">
+          <button class="multi-filter-btn" type="button"><span>All Statuses</span><span>▾</span></button>
+          <div class="multi-filter-dropdown">
+            <label><input type="checkbox" value="Watching"> Watching</label>
+            <label><input type="checkbox" value="Completed"> Completed</label>
+            <label><input type="checkbox" value="On-Hold"> On-Hold</label>
+            <label><input type="checkbox" value="Dropped"> Dropped</label>
+            <label><input type="checkbox" value="Plan to Watch"> Plan to Watch</label>
+          </div>
+        </div>
+
+        <div class="multi-filter" id="genre-filter-wrap">
+          <button class="multi-filter-btn" type="button"><span>All Genres</span><span>▾</span></button>
+          <div class="multi-filter-dropdown">
+            <label><input type="checkbox" value="1"> Action</label>
+            <label><input type="checkbox" value="2"> Adventure</label>
+            <label><input type="checkbox" value="4"> Comedy</label>
+            <label><input type="checkbox" value="8"> Drama</label>
+            <label><input type="checkbox" value="10"> Fantasy</label>
+            <label><input type="checkbox" value="14"> Horror</label>
+            <label><input type="checkbox" value="22"> Romance</label>
+            <label><input type="checkbox" value="24"> Sci-Fi</label>
+            <label><input type="checkbox" value="36"> Slice of Life</label>
+            <label><input type="checkbox" value="37"> Supernatural</label>
+            <label><input type="checkbox" value="7"> Mystery</label>
+            <label><input type="checkbox" value="27"> Shounen</label>
+          </div>
+        </div>
       </div>
     </section>
 

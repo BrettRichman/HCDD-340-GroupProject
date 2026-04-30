@@ -275,6 +275,10 @@ section {
   line-height: 1.2;
 }
 
+.anime-subtitle {
+  margin: 0;
+}
+
 .stats-row,
 .browse-metrics,
 .profile-quick-stats,

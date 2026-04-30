@@ -15,6 +15,8 @@ const SEEDED_LIST = [
   {
     mal_id: 52991,
     title: 'Sousou no Frieren',
+    title_english: 'Frieren: Beyond Journey\'s End',
+    title_japanese: '葬送のフリーレン',
     image: 'https://myanimelist.net/images/anime/1015/138006.jpg',
     episodes: 28,
     status: 'Watching',
@@ -24,7 +26,9 @@ const SEEDED_LIST = [
   },
   {
     mal_id: 58735,
-    title: 'Witch Hat Atelier',
+    title: 'Tongari Boushi no Atelier',
+    title_english: 'Witch Hat Atelier',
+    title_japanese: 'とんがり帽子のアトリエ',
     image: 'https://myanimelist.net/images/anime/1726/155542.jpg',
     episodes: 13,
     status: 'Plan to Watch',
@@ -35,6 +39,8 @@ const SEEDED_LIST = [
   {
     mal_id: 16498,
     title: 'Shingeki no Kyojin',
+    title_english: 'Attack on Titan',
+    title_japanese: '進撃の巨人',
     image: 'https://myanimelist.net/images/anime/10/47347.jpg',
     episodes: 25,
     status: 'Completed',
@@ -45,6 +51,8 @@ const SEEDED_LIST = [
   {
     mal_id: 21,
     title: 'One Piece',
+    title_english: 'One Piece',
+    title_japanese: 'ワンピース',
     image: 'https://myanimelist.net/images/anime/1244/138851.jpg',
     episodes: 1158,
     status: 'On-Hold',
@@ -55,6 +63,8 @@ const SEEDED_LIST = [
   {
     mal_id: 35849,
     title: 'Dr. Stone',
+    title_english: 'Dr. Stone',
+    title_japanese: 'ドクターストーン',
     image: 'https://myanimelist.net/images/anime/1773/155779.jpg',
     episodes: 13,
     status: 'Dropped',
@@ -199,8 +209,8 @@ function renderContinueWatching() {
             <div class="card-content">
               <img src="${item.image}" alt="${item.title}" class="anime-poster">
               <div class="anime-info">
-                <h3 class="anime-title">${item.title}</h3>
-                <p class="anime-subtitle">${item.status}</p>
+                <h3 class="anime-title">${item.title_english ?? item.title}</h3>
+                <p class="anime-subtitle">${item.title_japanese}</p>
                 <div class="stats-row">
                   <span class="status-pill ${relativeStatusClass(item.status)}">${item.status}</span>
                   <span class="episode-count">${watched}/${totalEpisodes || '?'}</span>
@@ -296,7 +306,7 @@ function createCarouselSlide(anime, active = false) {
 
         <div class="hero-copy">
           <span class="rank-pill">#${anime.popularity ?? 'N/A'} Popular</span>
-          <h3 class="hero-title">${anime.title}</h3>
+          <h3 class="hero-title">${anime.title_english ?? anime.title}</h3>
           <p class="anime-subtitle">${anime.title_japanese ?? ''}</p>
 
           <div class="stats-row">
@@ -311,7 +321,7 @@ function createCarouselSlide(anime, active = false) {
             <button
               class="list-save-btn hero-add-btn"
               data-mal-id="${anime.mal_id}"
-              data-title="${anime.title.replace(/"/g, '&quot;')}"
+              data-title="${anime.title_english ?? anime.title}".replace(/"/g, '&quot;')}"
               data-image="${anime.images.jpg.image_url}"
               data-episodes="${anime.episodes || 0}"
               type="button">
@@ -452,7 +462,7 @@ async function renderBrowsePage() {
   const statusFilter = document.getElementById('status-filter');
 
   try {
-    const response = await fetch('https://api.jikan.moe/v4/top/anime?filter=bypopularity&limit=18');
+    const response = await fetch('https://api.jikan.moe/v4/top/anime?filter=bypopularity&limit=20');
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
     const data = await response.json();
@@ -472,7 +482,8 @@ async function renderBrowsePage() {
       const entry = entryMap.get(anime.mal_id);
       const titleMatch =
         anime.title.toLowerCase().includes(query) ||
-        (anime.title_japanese || '').toLowerCase().includes(query);
+        (anime.title_japanese || '').toLowerCase().includes(query)||
+        (anime.title_english || '').toLowerCase().includes(query);
 
       let statusMatch = true;
       if (selectedStatus === 'untracked') {
@@ -495,7 +506,7 @@ async function renderBrowsePage() {
                 <div class="browse-copy">
                   <div class="browse-title-row">
                     <div>
-                      <h3>${anime.title}</h3>
+                      <h3>${anime.title_english ?? anime.title}</h3>
                       <p class="browse-meta">${anime.title_japanese ?? ''}</p>
                     </div>
                     <span class="rank-pill">#${anime.popularity ?? 'N/A'}</span>

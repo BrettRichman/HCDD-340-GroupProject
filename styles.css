@@ -126,6 +126,19 @@ nav a:hover,
   color: var(--brand-2);
 }
 
+.text-link {
+  white-space: nowrap;
+  background: var(--surface-muted);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 8px 14px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+}
+
 main {
   padding-bottom: 40px;
 }
@@ -871,6 +884,10 @@ section {
 
   .next {
     right: 10px;
+  }
+
+  .update-poster {
+    display: none;
   }
 }
 

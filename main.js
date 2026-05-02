@@ -574,9 +574,10 @@ async function renderBrowsePage() {
                 <label>
                   Status
                   <select class="anime-status">
-                    ${STATUS_OPTIONS.map(status => `
-                      <option value="${status}" ${existing?.status === status ? 'selected' : ''}>${status}</option>
-                    `).join('')}
+                     <option value="" ${!existing?.status ? 'selected' : ''}>---</option>
+                      ${STATUS_OPTIONS.map(status => `
+                        <option value="${status}" ${existing?.status === status ? 'selected' : ''}>${status}</option>
+                      `).join('')}
                   </select>
                 </label>
 
@@ -616,6 +617,7 @@ async function renderBrowsePage() {
         if (!anime) return;
 
         const status = parent.querySelector('.anime-status').value;
+        if (!status) return;
         const score = Number(parent.querySelector('.anime-score').value);
         let watchedEpisodes = Number(parent.querySelector('.anime-progress').value);
         const maxEpisodes = anime.episodes || 9999;

@@ -226,6 +226,46 @@ function renderContinueWatching() {
     : `<div class="empty-state">No saved anime yet. Add titles from Home, Community, or Browse.</div>`;
 }
 
+async function renderTrendingSection() {
+  const container = document.getElementById('trending-wrapper');
+  if (!container) return;
+
+  try {
+    const response = await fetch('https://api.jikan.moe/v4/top/anime?filter=airing&limit=3');
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const data = await response.json();
+    const animeList = Array.isArray(data.data) ? data.data : [];
+
+    container.innerHTML = animeList.map(anime => `
+      <article class="anime-card quick-card">
+        <div class="card-content">
+          <img src="${anime.images.jpg.image_url}" alt="${anime.title_english ?? anime.title}" class="anime-poster">
+          <div class="anime-info">
+            <div>
+              <h3 class="anime-title">${anime.title_english ?? anime.title}</h3>
+              <p class="anime-subtitle">${anime.title_japanese ?? ''}</p>
+              <div class="stats-row">
+                <span class="score-badge">${anime.score ?? 'N/A'}</span>
+                <span class="episode-count">${(anime.genres || []).slice(0, 2).map(g => g.name).join(' · ')}</span>
+              </div>
+            </div>
+            <button class="list-save-btn quick-add-btn"
+              data-mal-id="${anime.mal_id}"
+              data-title="${(anime.title_english ?? anime.title).replace(/"/g, '&quot;')}"
+              data-image="${anime.images.jpg.image_url}"
+              data-episodes="${anime.episodes || 0}"
+              type="button">Add to List</button>
+          </div>
+        </div>
+      </article>
+    `).join('');
+
+    bindQuickAddButtons();
+  } catch (error) {
+    console.error('Trending section failed to load:', error);
+  }
+}
+
 function renderProfilePage() {
   const statsList = document.getElementById('anime-stats-list');
   if (!statsList) return;
@@ -313,6 +353,7 @@ function createCarouselSlide(anime, active = false) {
             <span class="score-badge">${anime.score ?? 'N/A'}</span>
             <span class="episode-count">Episodes: ${anime.episodes ?? '?'}</span>
             <span class="episode-count">Members: ${(anime.members || 0).toLocaleString()}</span>
+            <span class="episode-count">${(anime.genres || []).slice(0, 2).map(g => g.name).join(' · ')}</span>
           </div>
 
           <p class="hero-synopsis">${synopsis}</p>
@@ -564,6 +605,7 @@ async function renderBrowsePage() {
                     <span class="score-badge">${anime.score ?? 'N/A'}</span>
                     <span class="episode-count">${anime.episodes ?? '?'} episodes</span>
                     <span class="episode-count">${anime.year ?? 'Unknown year'}</span>
+                    <span class="episode-count">${(anime.genres || []).slice(0, 2).map(g => g.name).join(' · ')}</span>
                   </div>
 
                   <p class="browse-description">${anime.synopsis ? anime.synopsis.slice(0, 180) + '…' : 'No synopsis available.'}</p>
@@ -661,6 +703,7 @@ window.addEventListener('DOMContentLoaded', () => {
   renderProfilePage();
   renderBrowsePage();
   renderContinueWatching();
+  renderTrendingSection();
   bindQuickAddButtons();
   registerServiceWorkerInline();
 });
@@ -678,7 +721,6 @@ toggleBtn?.addEventListener('click', () => {
   setTheme(isDark ? 'light' : 'dark');
 });
 
-// Initialize theme
 (function initTheme() {
   const saved = localStorage.getItem('theme');
 

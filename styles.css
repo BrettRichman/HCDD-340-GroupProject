@@ -897,3 +897,18 @@ section {
 .friend:nth-child(4) { background: #4ade80; }
 .friend:nth-child(5) { background: #60a5fa; }
 .friend:nth-child(6) { background: #a78bfa; }
+
+.voice-search-wrap {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.voice-search-wrap .browse-search {
+  flex: 1;
+}
+
+#voice-search-btn.listening {
+  background: var(--brand);
+  color: white;
+}

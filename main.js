@@ -597,6 +597,48 @@ function registerServiceWorkerInline() {
     });
   }
 }
+function setupVoiceSearch() {
+  const voiceButton = document.getElementById('voice-search-btn');
+  const searchInput = document.getElementById('browse-search');
+
+  if (!voiceButton || !searchInput) return;
+
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  if (!SpeechRecognition) {
+    voiceButton.disabled = true;
+    voiceButton.textContent = 'No Mic';
+    return;
+  }
+
+  const recognition = new SpeechRecognition();
+  recognition.lang = 'en-US';
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 1;
+
+  voiceButton.addEventListener('click', () => {
+    recognition.start();
+    voiceButton.classList.add('listening');
+    voiceButton.textContent = 'Listening...';
+  });
+
+  recognition.addEventListener('result', (event) => {
+    const spokenText = event.results[0][0].transcript;
+    searchInput.value = spokenText;
+
+    searchInput.dispatchEvent(new Event('input'));
+  });
+
+  recognition.addEventListener('end', () => {
+    voiceButton.classList.remove('listening');
+    voiceButton.textContent = '🎤';
+  });
+
+  recognition.addEventListener('error', () => {
+    voiceButton.classList.remove('listening');
+    voiceButton.textContent = '🎤';
+  });
+}
 
 window.addEventListener('DOMContentLoaded', () => {
   loadCarousel();
@@ -604,7 +646,9 @@ window.addEventListener('DOMContentLoaded', () => {
   renderBrowsePage();
   renderContinueWatching();
   bindQuickAddButtons();
+  setupVoiceSearch();
   registerServiceWorkerInline();
+  
 });
 
 const toggleBtn = document.getElementById('theme-toggle');

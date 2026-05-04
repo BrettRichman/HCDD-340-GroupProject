@@ -933,6 +933,35 @@ section {
 .friend:nth-child(5) { background: #60a5fa; }
 .friend:nth-child(6) { background: #a78bfa; }
 
+.voice-search-wrap {
+  position: relative;
+  flex: 1;
+}
+
+.voice-search-wrap .browse-search {
+  width: 100%;
+  padding-right: 44px;
+}
+
+#voice-search-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 4px;
+  color: var(--text-soft);
+  display: flex;
+  align-items: center;
+}
+
+#voice-search-btn.listening {
+  color: var(--brand);
+}
+
 #theme-toggle {
   background: none;
   border: none;
@@ -1029,4 +1058,84 @@ body.dark .icon-moon { display: none; }
 
 .multi-filter-btn span:last-child {
   flex-shrink: 0;
+}
+
+.community-hero {
+    background: linear-gradient(135deg, #2E51A2, #4f74c8);
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.community-hero h1 {
+    margin: 0 0 10px 0;
+    font-size: 2rem;
+}
+
+.community-hero p {
+    margin: 0;
+    font-size: 1rem;
+    opacity: 0.95;
+}
+
+.trending-wrapper {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 10px 0 10px 10px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+}
+
+.trending-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.forum-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    padding: 10px;
+}
+
+.forum-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    padding: 18px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.forum-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.18);
+}
+
+.forum-card h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.forum-card p {
+    margin-bottom: 12px;
+    color: #555555;
+}
+
+.forum-meta {
+    color: #2E51A2;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+@media (prefers-color-scheme: dark) {
+    .forum-card {
+        background: #2a2a2a;
+    }
+
+    .forum-card p {
+        color: #cccccc;
+    }
+}
+.hidden {
+    display: none;
 }

@@ -940,7 +940,7 @@ section {
 
 .voice-search-wrap .browse-search {
   width: 100%;
-  padding-right: 44px;
+  padding-right: 80px;
 }
 
 #voice-search-btn {
@@ -1138,4 +1138,77 @@ body.dark .icon-moon { display: none; }
 }
 .hidden {
     display: none;
+}
+
+#ai-recommend-btn {
+  position: absolute;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.8rem;
+  padding: 4px;
+  color: #666666;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+#ai-recommend-btn.listening {
+  color: var(--brand);
+}
+
+body.dark #ai-recommend-btn {
+  color: #aaaaaa;
+}
+
+#ai-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ai-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.ai-modal-box {
+  position: relative;
+  background: var(--surface);
+  border-radius: 20px;
+  padding: 24px;
+  width: min(500px, 90%);
+  box-shadow: var(--shadow);
+  z-index: 201;
+}
+
+.ai-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.ai-modal-header h3 {
+  margin: 0;
+}
+
+#ai-modal-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  color: var(--text-soft);
+}
+
+.ai-modal-body {
+  color: var(--text);
+  line-height: 1.6;
 }

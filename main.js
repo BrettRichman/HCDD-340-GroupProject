@@ -641,8 +641,6 @@ function renderForumPosts() {
 renderTrendingAnime();
 renderForumPosts();
 
-
-
 function openThread(thread) {
   const viewer = document.getElementById("threadViewer");
   const title = document.getElementById("threadTitle");
@@ -958,6 +956,120 @@ function setupVoiceSearch() {
   });
 }
 
+function setupAIRecommend() {
+  const aiButton = document.getElementById('ai-recommend-btn');
+  if (!aiButton) return;
+
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) {
+    aiButton.disabled = true;
+    return;
+  }
+
+  const recognition = new SpeechRecognition();
+  recognition.lang = 'en-US';
+  recognition.interimResults = true;
+  recognition.continuous = false;
+
+  const aiLabel = aiButton.querySelector('.ai-label');
+  let isListening = false;
+  let spokenQuery = '';
+
+  aiButton.addEventListener('click', () => {
+    if (isListening) {
+      recognition.stop();
+      return;
+    }
+    spokenQuery = '';
+    recognition.start();
+    isListening = true;
+    aiButton.classList.add('listening');
+    aiLabel.textContent = 'Listening...';
+  });
+
+  recognition.addEventListener('result', (event) => {
+    let interim = '';
+    let final = '';
+    for (let i = event.resultIndex; i < event.results.length; i++) {
+      const transcript = event.results[i][0].transcript;
+      if (event.results[i].isFinal) {
+        final += transcript;
+      } else {
+        interim += transcript;
+      }
+    }
+    spokenQuery = final || interim;
+    aiLabel.textContent = spokenQuery;
+  });
+
+  recognition.addEventListener('end', async () => {
+    isListening = false;
+    aiButton.classList.remove('listening');
+
+    if (!spokenQuery) {
+      aiLabel.textContent = '';
+      return;
+    }
+
+    aiLabel.textContent = 'Thinking...';
+
+    try {
+      const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer API_KEY_HERE`
+        },
+        body: JSON.stringify({
+          model: 'llama-3.1-8b-instant',
+          messages: [{
+            role: 'user',
+            content: `The user is looking for anime recommendations. They said: "${spokenQuery}". Suggest 3 anime titles that match. For each give the title and one sentence reason.`
+          }]
+        })
+      });
+
+      const data = await response.json();
+      const recommendation = data.choices[0].message.content;
+      showRecommendationModal(recommendation);
+
+      aiLabel.textContent = '';
+    } catch (error) {
+      console.error('AI recommendation failed:', error);
+      aiLabel.textContent = 'Failed';
+      setTimeout(() => { aiLabel.textContent = ''; }, 2000);
+    }
+  });
+
+  recognition.addEventListener('error', () => {
+    isListening = false;
+    aiButton.classList.remove('listening');
+    aiLabel.textContent = '';
+  });
+}
+
+function showRecommendationModal(text) {
+  const existing = document.getElementById('ai-modal');
+  if (existing) existing.remove();
+
+  const modal = document.createElement('div');
+  modal.id = 'ai-modal';
+  modal.innerHTML = `
+    <div class="ai-modal-backdrop"></div>
+    <div class="ai-modal-box">
+      <div class="ai-modal-header">
+        <h3>AI Recommendation</h3>
+        <button id="ai-modal-close" type="button">✕</button>
+      </div>
+      <div class="ai-modal-body">${text.replace(/\n/g, '<br>')}</div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+
+  document.getElementById('ai-modal-close').addEventListener('click', () => modal.remove());
+  modal.querySelector('.ai-modal-backdrop').addEventListener('click', () => modal.remove());
+}
+
 window.addEventListener('DOMContentLoaded', () => {
   loadCarousel();
   renderProfilePage();
@@ -966,6 +1078,7 @@ window.addEventListener('DOMContentLoaded', () => {
   renderTrendingSection();
   bindQuickAddButtons();
   setupVoiceSearch();
+  setupAIRecommend();
   registerServiceWorkerInline();
 });
 

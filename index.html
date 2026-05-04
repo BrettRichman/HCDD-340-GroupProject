@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
   <link rel="manifest" href="pwa-manifest.json">
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-  <link rel="icon" href="icons/icon-192.png">
+  <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/7/7a/MyAnimeList_Logo.png">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -20,7 +20,24 @@
       <span class="brand">MyAnimeList</span>
       <nav>
         <ul>
-            <button id="theme-toggle">🌙</button>
+            <li>
+              <button id="theme-toggle">
+                <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="5"/>
+                  <line x1="12" y1="1" x2="12" y2="3"/>
+                  <line x1="12" y1="21" x2="12" y2="23"/>
+                  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                  <line x1="1" y1="12" x2="3" y2="12"/>
+                  <line x1="21" y1="12" x2="23" y2="12"/>
+                  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                </svg>
+                <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                </svg>
+              </button>
+            </li>
             <li><a href="index.html" class="active-link">Home</a></li>
             <li><a href="browse.html">Browse</a></li>
             <li><a href="community.html">Community</a></li>
@@ -58,63 +75,8 @@
       <div class="section-header">
         <p class="eyebrow">Currently Airing</p>
         <h2>Trending picks this week</h2>
-        <p>Quick shortcuts to popular shows people are talking about.</p>
       </div>
-
-      <div class="anime-card-wrapper">
-        <article class="anime-card quick-card">
-          <div class="card-content">
-            <img src="https://myanimelist.net/images/anime/1015/138006.jpg" alt="Poster for Frieren: Beyond Journey's End" class="anime-poster">
-            <div class="anime-info">
-              <h3 class="anime-title">Frieren: Beyond Journey's End</h3>
-              <p class="anime-subtitle">Sousou no Frieren</p>
-              <div class="stats-row">
-                <span class="score-badge">9.28</span>
-                <span class="episode-count">Fantasy · Adventure</span>
-              </div>
-          </div>
-        </article>
-
-        <article class="anime-card quick-card">
-          <div class="card-content">
-            <img src="https://myanimelist.net/images/anime/1773/155779.jpg" alt="Poster for Dr. Stone" class="anime-poster">
-            <div class="anime-info">
-              <h3 class="anime-title">Dr. Stone</h3>
-              <p class="anime-subtitle">Science Future</p>
-              <div class="stats-row">
-                <span class="score-badge">8.29</span>
-                <span class="episode-count">Adventure · Sci-Fi</span>
-              </div>
-              <button class="list-save-btn quick-add-btn"
-                data-mal-id="35849"
-                data-title="Dr. Stone"
-                data-image="https://myanimelist.net/images/anime/1773/155779.jpg"
-                data-episodes="13"
-                type="button">Add to List</button>
-            </div>
-          </div>
-        </article>
-
-        <article class="anime-card quick-card">
-          <div class="card-content">
-            <img src="https://myanimelist.net/images/anime/1244/138851.jpg" alt="Poster for One Piece" class="anime-poster">
-            <div class="anime-info">
-              <h3 class="anime-title">One Piece</h3>
-              <p class="anime-subtitle">One Piece</p>
-              <div class="stats-row">
-                <span class="score-badge">8.73</span>
-                <span class="episode-count">Action · Adventure</span>
-              </div>
-              <button class="list-save-btn quick-add-btn"
-                data-mal-id="21"
-                data-title="One Piece"
-                data-image="https://myanimelist.net/images/anime/1244/138851.jpg"
-                data-episodes="1158"
-                type="button">Add to List</button>
-            </div>
-          </div>
-        </article>
-      </div>
+      <div id="trending-wrapper" class="anime-card-wrapper"></div>
     </section>
   </main>
 

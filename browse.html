@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
   <link rel="manifest" href="pwa-manifest.json">
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-  <link rel="icon" href="icons/icon-192.png">
+  <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/7/7a/MyAnimeList_Logo.png">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -18,15 +18,32 @@
 
     <span>
       <span class="brand">MyAnimeList</span>
-        <nav>
+      <nav>
         <ul>
-            <button id="theme-toggle">🌙</button>
+            <li>
+              <button id="theme-toggle">
+                <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="5"/>
+                  <line x1="12" y1="1" x2="12" y2="3"/>
+                  <line x1="12" y1="21" x2="12" y2="23"/>
+                  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                  <line x1="1" y1="12" x2="3" y2="12"/>
+                  <line x1="21" y1="12" x2="23" y2="12"/>
+                  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                </svg>
+                <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                </svg>
+              </button>
+            </li>
             <li><a href="index.html">Home</a></li>
             <li><a href="browse.html" class="active-link">Browse</a></li>
             <li><a href="community.html">Community</a></li>
             <li><a href="profile.html">Profile</a></li>
         </ul>
-        </nav>
+      </nav>
     </span>
   </header>
 
@@ -39,15 +56,46 @@
       </div>
 
       <div class="browse-actions">
-        <input id="browse-search" class="browse-search" type="search" placeholder="Search anime">
-        <select id="status-filter" class="browse-filter">
-          <option value="all">All anime</option>
-          <option value="Watching">Watching</option>
-          <option value="Completed">Completed</option>
-          <option value="On-Hold">On-Hold</option>
-          <option value="Dropped">Dropped</option>
-          <option value="Plan to Watch">Plan to Watch</option>
-        </select>
+        <div class="voice-search-wrap">
+          <input id="browse-search" class="browse-search" type="search" placeholder="Search anime">
+          <button id="voice-search-btn" type="button" aria-label="Search by voice">
+            <span class="voice-label"></span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="2" width="6" height="12" rx="3"/>
+              <path d="M5 10a7 7 0 0 0 14 0"/>
+              <line x1="12" y1="19" x2="12" y2="22"/>
+              <line x1="8" y1="22" x2="16" y2="22"/>
+            </svg>
+          </button>
+        </div>
+        <div class="multi-filter" id="status-filter-wrap">
+          <button class="multi-filter-btn" type="button"><span>All Statuses</span><span>▾</span></button>
+          <div class="multi-filter-dropdown">
+            <label><input type="checkbox" value="Watching"> Watching</label>
+            <label><input type="checkbox" value="Completed"> Completed</label>
+            <label><input type="checkbox" value="On-Hold"> On-Hold</label>
+            <label><input type="checkbox" value="Dropped"> Dropped</label>
+            <label><input type="checkbox" value="Plan to Watch"> Plan to Watch</label>
+          </div>
+        </div>
+
+        <div class="multi-filter" id="genre-filter-wrap">
+          <button class="multi-filter-btn" type="button"><span>All Genres</span><span>▾</span></button>
+          <div class="multi-filter-dropdown">
+            <label><input type="checkbox" value="1"> Action</label>
+            <label><input type="checkbox" value="2"> Adventure</label>
+            <label><input type="checkbox" value="4"> Comedy</label>
+            <label><input type="checkbox" value="8"> Drama</label>
+            <label><input type="checkbox" value="10"> Fantasy</label>
+            <label><input type="checkbox" value="14"> Horror</label>
+            <label><input type="checkbox" value="22"> Romance</label>
+            <label><input type="checkbox" value="24"> Sci-Fi</label>
+            <label><input type="checkbox" value="36"> Slice of Life</label>
+            <label><input type="checkbox" value="37"> Supernatural</label>
+            <label><input type="checkbox" value="7"> Mystery</label>
+            <label><input type="checkbox" value="27"> Shounen</label>
+          </div>
+        </div>
       </div>
     </section>
 

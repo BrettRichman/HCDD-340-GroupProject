@@ -15,6 +15,8 @@ const SEEDED_LIST = [
   {
     mal_id: 52991,
     title: 'Sousou no Frieren',
+    title_english: 'Frieren: Beyond Journey\'s End',
+    title_japanese: '葬送のフリーレン',
     image: 'https://myanimelist.net/images/anime/1015/138006.jpg',
     episodes: 28,
     status: 'Watching',
@@ -24,7 +26,9 @@ const SEEDED_LIST = [
   },
   {
     mal_id: 58735,
-    title: 'Witch Hat Atelier',
+    title: 'Tongari Boushi no Atelier',
+    title_english: 'Witch Hat Atelier',
+    title_japanese: 'とんがり帽子のアトリエ',
     image: 'https://myanimelist.net/images/anime/1726/155542.jpg',
     episodes: 13,
     status: 'Plan to Watch',
@@ -35,6 +39,8 @@ const SEEDED_LIST = [
   {
     mal_id: 16498,
     title: 'Shingeki no Kyojin',
+    title_english: 'Attack on Titan',
+    title_japanese: '進撃の巨人',
     image: 'https://myanimelist.net/images/anime/10/47347.jpg',
     episodes: 25,
     status: 'Completed',
@@ -45,6 +51,8 @@ const SEEDED_LIST = [
   {
     mal_id: 21,
     title: 'One Piece',
+    title_english: 'One Piece',
+    title_japanese: 'ワンピース',
     image: 'https://myanimelist.net/images/anime/1244/138851.jpg',
     episodes: 1158,
     status: 'On-Hold',
@@ -55,6 +63,8 @@ const SEEDED_LIST = [
   {
     mal_id: 35849,
     title: 'Dr. Stone',
+    title_english: 'Dr. Stone',
+    title_japanese: 'ドクターストーン',
     image: 'https://myanimelist.net/images/anime/1773/155779.jpg',
     episodes: 13,
     status: 'Dropped',
@@ -199,8 +209,8 @@ function renderContinueWatching() {
             <div class="card-content">
               <img src="${item.image}" alt="${item.title}" class="anime-poster">
               <div class="anime-info">
-                <h3 class="anime-title">${item.title}</h3>
-                <p class="anime-subtitle">${item.status}</p>
+                <h3 class="anime-title">${item.title_english ?? item.title}</h3>
+                <p class="anime-subtitle">${item.title_japanese}</p>
                 <div class="stats-row">
                   <span class="status-pill ${relativeStatusClass(item.status)}">${item.status}</span>
                   <span class="episode-count">${watched}/${totalEpisodes || '?'}</span>
@@ -214,6 +224,46 @@ function renderContinueWatching() {
         `;
       }).join('')
     : `<div class="empty-state">No saved anime yet. Add titles from Home, Community, or Browse.</div>`;
+}
+
+async function renderTrendingSection() {
+  const container = document.getElementById('trending-wrapper');
+  if (!container) return;
+
+  try {
+    const response = await fetch('https://api.jikan.moe/v4/top/anime?filter=airing&limit=3');
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const data = await response.json();
+    const animeList = Array.isArray(data.data) ? data.data : [];
+
+    container.innerHTML = animeList.map(anime => `
+      <article class="anime-card quick-card">
+        <div class="card-content">
+          <img src="${anime.images.jpg.image_url}" alt="${anime.title_english ?? anime.title}" class="anime-poster">
+          <div class="anime-info">
+            <div>
+              <h3 class="anime-title">${anime.title_english ?? anime.title}</h3>
+              <p class="anime-subtitle">${anime.title_japanese ?? ''}</p>
+              <div class="stats-row">
+                <span class="score-badge">${anime.score ?? 'N/A'}</span>
+                <span class="episode-count">${(anime.genres || []).slice(0, 2).map(g => g.name).join(' · ')}</span>
+              </div>
+            </div>
+            <button class="list-save-btn quick-add-btn"
+              data-mal-id="${anime.mal_id}"
+              data-title="${(anime.title_english ?? anime.title).replace(/"/g, '&quot;')}"
+              data-image="${anime.images.jpg.image_url}"
+              data-episodes="${anime.episodes || 0}"
+              type="button">Add to List</button>
+          </div>
+        </div>
+      </article>
+    `).join('');
+
+    bindQuickAddButtons();
+  } catch (error) {
+    console.error('Trending section failed to load:', error);
+  }
 }
 
 function renderProfilePage() {
@@ -266,8 +316,9 @@ function renderProfilePage() {
   recentUpdates.innerHTML = latest.length
     ? latest.map(item => `
         <div class="update-row">
+          <img src="${item.image}" alt="${item.title_english ?? item.title}" class="update-poster">
           <div class="update-copy">
-            <h3>${item.title}</h3>
+            <h3>${item.title_english ?? item.title}</h3>
             <p>${item.status} · ${item.watchedEpisodes}/${item.episodes || '?'} episodes · Score ${item.score || '-'}</p>
           </div>
           <span class="update-meta">${formatDate(item.updatedAt)}</span>
@@ -294,14 +345,15 @@ function createCarouselSlide(anime, active = false) {
         <img src="${anime.images.jpg.image_url}" alt="${anime.title}" class="hero-poster">
 
         <div class="hero-copy">
-          <span class="rank-pill">#${anime.rank ?? 'N/A'} Popular</span>
-          <h3 class="hero-title">${anime.title}</h3>
+          <span class="rank-pill">#${anime.popularity ?? 'N/A'} Popular</span>
+          <h3 class="hero-title">${anime.title_english ?? anime.title}</h3>
           <p class="anime-subtitle">${anime.title_japanese ?? ''}</p>
 
           <div class="stats-row">
             <span class="score-badge">${anime.score ?? 'N/A'}</span>
             <span class="episode-count">Episodes: ${anime.episodes ?? '?'}</span>
             <span class="episode-count">Members: ${(anime.members || 0).toLocaleString()}</span>
+            <span class="episode-count">${(anime.genres || []).slice(0, 2).map(g => g.name).join(' · ')}</span>
           </div>
 
           <p class="hero-synopsis">${synopsis}</p>
@@ -310,7 +362,7 @@ function createCarouselSlide(anime, active = false) {
             <button
               class="list-save-btn hero-add-btn"
               data-mal-id="${anime.mal_id}"
-              data-title="${anime.title.replace(/"/g, '&quot;')}"
+              data-title="${anime.title_english ?? anime.title}".replace(/"/g, '&quot;')}"
               data-image="${anime.images.jpg.image_url}"
               data-episodes="${anime.episodes || 0}"
               type="button">
@@ -417,6 +469,211 @@ function initCarousel() {
   resetTimer();
 }
 
+loadCarousel();
+const trendingAnimeData = [
+  {
+    title: "Frieren: Beyond Journey's End",
+    subtitle: "Sousou no Frieren",
+    score: "9.28",
+    rank: "#1 Trending",
+    image: "https://myanimelist.net/images/anime/1015/138006.jpg"
+  },
+  {
+    title: "Witch Hat Atelier",
+    subtitle: "Tongari Boushi no Atelier",
+    score: "8.81",
+    rank: "#2 Trending",
+    image: "https://myanimelist.net/images/anime/1726/155542.jpg"
+  },
+  {
+    title: "Attack on Titan",
+    subtitle: "Shingeki no Kyojin",
+    score: "8.54",
+    rank: "#3 Trending",
+    image: "https://myanimelist.net/images/anime/10/47347.jpg"
+  }
+];
+
+const forumPostsData = [
+  {
+    id: 1,
+    title: "Best anime of the season?",
+    description: "Fans are debating which current show deserves the top spot this season.",
+    replies: 248,
+    posts: [
+      {
+        user: "AnimeFan21",
+        time: "2 hours ago:",
+        message: "For me it has to be Frieren. The pacing and emotional storytelling have been incredible every week."
+      },
+      {
+        user: "MangaReader99",
+        time: "1 hour ago:",
+        message: "I agree Frieren is amazing, but I think Witch Hat Atelier is getting underrated in these discussions."
+      },
+      {
+        user: "OtakuCentral",
+        time: "35 minutes ago:",
+        message: "I think it depends on whether people care more about writing, animation, or hype moments."
+      }
+    ]
+  },
+  {
+    id: 2,
+    title: "Most underrated fantasy anime",
+    description: "Users are sharing hidden gems that deserve more recognition.",
+    replies: 183,
+    posts: [
+      {
+        user: "CloudWatcher",
+        time: "3 hours ago:",
+        message: "Grimgar will always be one of the most underrated fantasy anime for me."
+      },
+      {
+        user: "NightOwl",
+        time: "2 hours ago:",
+        message: "The Vision of Escaflowne deserves way more love from modern anime fans."
+      },
+      {
+        user: "RetroAnimeGuy",
+        time: "50 minutes ago:",
+        message: "Twelve Kingdoms is another one people barely mention anymore."
+      }
+    ]
+  },
+  {
+    id: 3,
+    title: "Anime openings you never skip",
+    description: "A discussion about the most iconic openings and songs in anime.",
+    replies: 312,
+    posts: [
+      {
+        user: "OpeningCollector",
+        time: "5 hours ago:",
+        message: "I never skip Again from Fullmetal Alchemist: Brotherhood."
+      },
+      {
+        user: "VibeCheck",
+        time: "4 hours ago:",
+        message: "Cruel Angel's Thesis is the definition of an opening you have to listen to every time."
+      },
+      {
+        user: "MusicNerd",
+        time: "25 minutes ago:",
+        message: "The first Death Note opening still goes unbelievably hard."
+      }
+    ]
+  },
+  {
+    id: 4,
+    title: "What should I watch after Frieren?",
+    description: "Recommendations for viewers looking for similar emotional fantasy series.",
+    replies: 129,
+    posts: [
+      {
+        user: "StorySeeker",
+        time: "1 hour ago:",
+        message: "You should definitely try Violet Evergarden if you want something emotional and reflective."
+      },
+      {
+        user: "FantasyLover",
+        time: "45 minutes ago:",
+        message: "Mushishi has a similar calm and thoughtful feeling, even though it is a different kind of fantasy."
+      },
+      {
+        user: "CozyWatcher",
+        time: "20 minutes ago:",
+        message: "Natsume's Book of Friends is another great pick if you liked the emotional atmosphere."
+      }
+    ]
+  }
+];
+
+function renderTrendingAnime() {
+  const trendingContainer = document.getElementById("trendingAnime");
+  if (!trendingContainer) return;
+
+  trendingContainer.innerHTML = "";
+
+  trendingAnimeData.forEach((anime) => {
+    const animeCard = document.createElement("article");
+    animeCard.classList.add("anime-card");
+
+    animeCard.innerHTML = `
+      <div class="card-content">
+        <img src="${anime.image}" alt="Poster for ${anime.title}" class="anime-poster">
+        <div class="anime-info">
+          <h3 class="anime-title">${anime.title}</h3>
+          <p class="anime-subtitle">${anime.subtitle}</p>
+          <div class="stats-row">
+            <span class="score-badge">${anime.score}</span>
+            <span class="episode-count">${anime.rank}</span>
+          </div>
+        </div>
+      </div>
+    `;
+
+    trendingContainer.appendChild(animeCard);
+  });
+}
+
+function renderForumPosts() {
+  
+  const forumContainer = document.getElementById("forumList");
+  if (!forumContainer) return;
+
+  forumContainer.innerHTML = "";
+
+  forumPostsData.forEach((post) => {
+    const forumCard = document.createElement("article");
+    forumCard.classList.add("forum-card");
+
+    forumCard.innerHTML = `
+      <h3>${post.title}</h3>
+      <p>${post.description}</p>
+      <span class="forum-meta">${post.replies} replies</span>
+    `;
+    forumCard.addEventListener("click", () => openThread(post));
+    forumContainer.appendChild(forumCard);
+  });
+}
+
+renderTrendingAnime();
+renderForumPosts();
+
+
+
+function openThread(thread) {
+  const viewer = document.getElementById("threadViewer");
+  const title = document.getElementById("threadTitle");
+  const description = document.getElementById("threadDescription");
+  const postsContainer = document.getElementById("threadPosts");
+
+  if (!viewer || !title || !description || !postsContainer) return;
+
+  title.textContent = thread.title;
+  description.textContent = thread.description;
+  postsContainer.innerHTML = "";
+
+  thread.posts.forEach((post) => {
+    const postCard = document.createElement("div");
+    postCard.classList.add("thread-post-card");
+
+    postCard.innerHTML = `
+      <div class="thread-post-top">
+        <span class="thread-user">${post.user}</span>
+        <span class="thread-time">${post.time}</span>
+      </div>
+      <p class="thread-message">${post.message}</p>
+    `;
+
+    postsContainer.appendChild(postCard);
+  });
+
+  viewer.classList.remove("hidden");
+  viewer.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
 function bindHeroAddButtons() {
   document.querySelectorAll('.hero-add-btn').forEach(button => {
     button.addEventListener('click', () => {
@@ -448,12 +705,14 @@ async function renderBrowsePage() {
 
   let animeData = [];
   const searchInput = document.getElementById('browse-search');
-  const statusFilter = document.getElementById('status-filter');
+  const statusWrap = document.getElementById('status-filter-wrap');
+  const genreWrap = document.getElementById('genre-filter-wrap');
+
+  if (!searchInput || !statusWrap || !genreWrap) return;
 
   try {
-    const response = await fetch('https://api.jikan.moe/v4/top/anime?filter=bypopularity&limit=18');
+    const response = await fetch('https://api.jikan.moe/v4/top/anime?filter=bypopularity&limit=20');
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
-
     const data = await response.json();
     animeData = Array.isArray(data.data) ? data.data : [];
   } catch (error) {
@@ -462,29 +721,76 @@ async function renderBrowsePage() {
     return;
   }
 
+  [statusWrap, genreWrap].forEach(wrap => {
+    const btn = wrap.querySelector('.multi-filter-btn');
+    const dropdown = wrap.querySelector('.multi-filter-dropdown');
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      dropdown.classList.toggle('open');
+    });
+  });
+
+  document.addEventListener('click', e => {
+    [statusWrap, genreWrap].forEach(wrap => {
+      if (!wrap.contains(e.target)) {
+        wrap.querySelector('.multi-filter-dropdown').classList.remove('open');
+      }
+    });
+  });
+
+  function getChecked(wrap) {
+    return [...wrap.querySelectorAll('input[type=checkbox]:checked')].map(cb => ({
+      value: cb.value,
+      label: cb.closest('label').textContent.trim()
+    }));
+  }
+
+  function updateBtnLabel(wrap, defaultLabel) {
+    const checked = getChecked(wrap);
+    const label = checked.length ? checked.map(c => c.label).join(', ') : defaultLabel;
+    wrap.querySelector('.multi-filter-btn').innerHTML =
+      `<span>${label}</span><span>▾</span>`;
+  }
+
+  statusWrap.querySelectorAll('input').forEach(cb => cb.addEventListener('change', () => {
+    updateBtnLabel(statusWrap, 'All Statuses');
+    drawCards();
+  }));
+
+  genreWrap.querySelectorAll('input').forEach(cb => cb.addEventListener('change', () => {
+    updateBtnLabel(genreWrap, 'All Genres');
+    drawCards();
+  }));
+
+  searchInput.addEventListener('input', drawCards);
+
   function drawCards() {
     const query = searchInput.value.trim().toLowerCase();
-    const selectedStatus = statusFilter.value;
+    const selectedStatuses = getChecked(statusWrap).map(c => c.value);
+    const selectedGenres = getChecked(genreWrap).map(c => c.value);
     const entryMap = getEntryMap();
 
     const filtered = animeData.filter(anime => {
       const entry = entryMap.get(anime.mal_id);
+
       const titleMatch =
         anime.title.toLowerCase().includes(query) ||
-        (anime.title_japanese || '').toLowerCase().includes(query);
+        (anime.title_japanese || '').toLowerCase().includes(query) ||
+        (anime.title_english || '').toLowerCase().includes(query);
 
-      let statusMatch = true;
-      if (selectedStatus === 'untracked') {
-        statusMatch = !entry;
-      } else if (selectedStatus !== 'all') {
-        statusMatch = !!entry && entry.status === selectedStatus;
-      }
+      const statusMatch = selectedStatuses.length === 0 ||
+        selectedStatuses.includes(entry?.status ?? '');
 
-      return titleMatch && statusMatch;
+      const genreMatch = selectedGenres.length === 0 ||
+        selectedGenres.some(id => (anime.genres || []).some(g => String(g.mal_id) === id));
+
+      return titleMatch && statusMatch && genreMatch;
     });
 
-    browseGrid.innerHTML = filtered.length
-      ? filtered.map(anime => {
+    const displayed = filtered.slice(0, 20);
+
+    browseGrid.innerHTML = displayed.length
+      ? displayed.map(anime => {
           const existing = entryMap.get(anime.mal_id);
 
           return `
@@ -494,7 +800,7 @@ async function renderBrowsePage() {
                 <div class="browse-copy">
                   <div class="browse-title-row">
                     <div>
-                      <h3>${anime.title}</h3>
+                      <h3>${anime.title_english ?? anime.title}</h3>
                       <p class="browse-meta">${anime.title_japanese ?? ''}</p>
                     </div>
                     <span class="rank-pill">#${anime.popularity ?? 'N/A'}</span>
@@ -504,6 +810,7 @@ async function renderBrowsePage() {
                     <span class="score-badge">${anime.score ?? 'N/A'}</span>
                     <span class="episode-count">${anime.episodes ?? '?'} episodes</span>
                     <span class="episode-count">${anime.year ?? 'Unknown year'}</span>
+                    <span class="episode-count">${(anime.genres || []).slice(0, 2).map(g => g.name).join(' · ')}</span>
                   </div>
 
                   <p class="browse-description">${anime.synopsis ? anime.synopsis.slice(0, 180) + '…' : 'No synopsis available.'}</p>
@@ -514,9 +821,10 @@ async function renderBrowsePage() {
                 <label>
                   Status
                   <select class="anime-status">
-                    ${STATUS_OPTIONS.map(status => `
-                      <option value="${status}" ${existing?.status === status ? 'selected' : ''}>${status}</option>
-                    `).join('')}
+                     <option value="" ${!existing?.status ? 'selected' : ''}>---</option>
+                      ${STATUS_OPTIONS.map(status => `
+                        <option value="${status}" ${existing?.status === status ? 'selected' : ''}>${status}</option>
+                      `).join('')}
                   </select>
                 </label>
 
@@ -533,9 +841,9 @@ async function renderBrowsePage() {
                 <label>
                   Score
                   <select class="anime-score">
-                    ${Array.from({ length: 11 }, (_, index) => `
-                      <option value="${index}" ${Number(existing?.score ?? 0) === index ? 'selected' : ''}>
-                        ${index === 0 ? 'No score' : index}
+                    ${Array.from({ length: 11 }, (_, i) => `
+                      <option value="${i}" ${Number(existing?.score ?? 0) === i ? 'selected' : ''}>
+                        ${i === 0 ? 'No score' : i}
                       </option>
                     `).join('')}
                   </select>
@@ -553,19 +861,20 @@ async function renderBrowsePage() {
         const parent = event.currentTarget.closest('.browse-form-grid');
         const animeId = Number(parent.dataset.animeId);
         const anime = animeData.find(item => item.mal_id === animeId);
-
         if (!anime) return;
 
         const status = parent.querySelector('.anime-status').value;
+        if (!status) return;
         const score = Number(parent.querySelector('.anime-score').value);
         let watchedEpisodes = Number(parent.querySelector('.anime-progress').value);
         const maxEpisodes = anime.episodes || 9999;
-
         watchedEpisodes = Math.max(0, Math.min(watchedEpisodes, maxEpisodes));
 
         upsertAnimeEntry({
           mal_id: anime.mal_id,
           title: anime.title,
+          title_english: anime.title_english ?? '',
+          title_japanese: anime.title_japanese ?? '',
           image: anime.images.jpg.image_url,
           episodes: anime.episodes || 0,
           status,
@@ -574,15 +883,11 @@ async function renderBrowsePage() {
         });
 
         button.textContent = 'Saved';
-        setTimeout(() => {
-          button.textContent = 'Save Entry';
-        }, 1000);
+        setTimeout(() => { button.textContent = 'Save Entry'; }, 1000);
       });
     });
   }
 
-  searchInput.addEventListener('input', drawCards);
-  statusFilter.addEventListener('change', drawCards);
   drawCards();
 }
 
@@ -598,12 +903,69 @@ function registerServiceWorkerInline() {
   }
 }
 
+function setupVoiceSearch() {
+  const voiceButton = document.getElementById('voice-search-btn');
+  const searchInput = document.getElementById('browse-search');
+
+  if (!voiceButton || !searchInput) return;
+
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  if (!SpeechRecognition) {
+    voiceButton.disabled = true;
+    voiceButton.textContent = 'No Mic';
+    return;
+  }
+
+  const recognition = new SpeechRecognition();
+  recognition.lang = 'en-US';
+  recognition.interimResults = true;
+  recognition.maxAlternatives = 1;
+
+  const voiceLabel = voiceButton.querySelector('.voice-label');
+
+  voiceButton.addEventListener('click', () => {
+    recognition.start();
+    voiceButton.classList.add('listening');
+    voiceLabel.textContent = 'Listening...';
+  });
+
+  recognition.addEventListener('result', (event) => {
+  let interim = '';
+  let final = '';
+
+  for (let i = event.resultIndex; i < event.results.length; i++) {
+    const transcript = event.results[i][0].transcript;
+    if (event.results[i].isFinal) {
+      final += transcript;
+    } else {
+      interim += transcript;
+    }
+  }
+
+  searchInput.value = final || interim;
+  searchInput.dispatchEvent(new Event('input'));
+});
+
+  recognition.addEventListener('end', () => {
+    voiceButton.classList.remove('listening');
+    voiceLabel.textContent = '';
+  });
+
+  recognition.addEventListener('error', () => {
+    voiceButton.classList.remove('listening');
+    voiceLabel.textContent = '';
+  });
+}
+
 window.addEventListener('DOMContentLoaded', () => {
   loadCarousel();
   renderProfilePage();
   renderBrowsePage();
   renderContinueWatching();
+  renderTrendingSection();
   bindQuickAddButtons();
+  setupVoiceSearch();
   registerServiceWorkerInline();
 });
 
@@ -613,9 +975,6 @@ function setTheme(theme) {
   document.body.classList.remove('light', 'dark');
   document.body.classList.add(theme);
   localStorage.setItem('theme', theme);
-
-  // 🔥 Update icon
-  toggleBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
 }
 
 toggleBtn?.addEventListener('click', () => {
@@ -623,7 +982,6 @@ toggleBtn?.addEventListener('click', () => {
   setTheme(isDark ? 'light' : 'dark');
 });
 
-// Initialize theme
 (function initTheme() {
   const saved = localStorage.getItem('theme');
 

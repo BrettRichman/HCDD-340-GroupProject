@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2E51A2">
+    <title>Friends - MyAnimeList</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="header">
+  <span>
+    <span class="brand">MyAnimeList</span>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="browse.html">Browse</a></li>
+        <li><a href="community.html">Community</a></li>
+        <li><a href="profile.html" class="active-link"> Profile ▾</a></li>
+      </ul>
+    </nav>
+  </span>
+</header>
+
+<main>
+  <section class="browse-hero">
+    <h1>Manage Friends</h1>
+    <p>Search for users, send requests, and manage your friends list.</p>
+  </section>
+
+  <section class="friends-page-grid">
+
+    <div class="profile-card">
+      <h3>Find Friends</h3>
+      <input id="friend-search" class="friend-search" placeholder="Search username">
+      <div id="friend-results" class="friend-results"></div>
+    </div>
+
+    <div class="profile-card">
+      <h3>Friend Requests</h3>
+      <div id="friend-requests" class="friend-results"></div>
+    </div>
+
+    <div class="profile-card">
+      <h3>Your Friends</h3>
+      <div id="friends-grid" class="friends-grid"></div>
+    </div>
+
+  </section>
+</main>
+
+<script src="main.js"></script>
+</body>
+</html>

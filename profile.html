@@ -41,7 +41,13 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="browse.html">Browse</a></li>
             <li><a href="community.html">Community</a></li>
-            <li><a href="profile.html" class="active-link">Profile</a></li>
+            <li class="nav-dropdown">
+              <a href="profile.html" class="active-link">Profile ▾</a>
+              <div class="nav-dropdown-menu">
+                <a href="profile.html">Profile</a>
+                <a href="friends.html">Friends</a>
+              </div>
+            </li>
         </ul>
       </nav>
     </span>
@@ -132,26 +138,27 @@
       </article>
 
       <article class="profile-card friends-card">
-        <div class="card-heading-row">
-          <div>
-            <p class="eyebrow">Social</p>
-            <h2>Friends</h2>
-          </div>
-            <div class="friend-actions">
-            <span class="friend-count">6 Total</span>
-            <button class="add-friend-btn" type="button">+ Add</button>
-            </div>        
+      <div class="card-heading-row">
+        <div>
+          <p class="eyebrow">Social</p>
+          <h2>Friends</h2>
         </div>
 
-        <div class="friends-grid">
-            <div class="friend">Bad Benito</div>
-            <div class="friend">Yuta</div>
-            <div class="friend">T.T.T.</div>
-            <div class="friend">Josh</div>
-            <div class="friend">Ramona Flowers</div>
-            <div class="friend">Brenda</div>
+        <div class="friend-actions">
+          <span id="friend-count" class="friend-count"></span>
+          <a href="friends.html" class="add-friend-btn">+ Add</a>
         </div>
-      </article>
+      </div>
+
+      <div class="friends-grid">
+      <div class="friend">Bad Benito</div>
+      <div class="friend">Yuta</div>
+      <div class="friend">T.T.T.</div>
+      <div class="friend">Josh</div>
+      <div class="friend">Ramona Flowers</div>
+      <div class="friend">Brenda</div>
+    </div>
+    </article>
     </section>
   </main>
 

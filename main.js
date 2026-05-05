@@ -226,6 +226,84 @@ function renderContinueWatching() {
     : `<div class="empty-state">No saved anime yet. Add titles from Home, Community, or Browse.</div>`;
 }
 
+let friendsData = ["Bad Benito", "Yuta", "T.T.T.", "Stretchy", "Ramona Flowers", "Brenda"];
+let pendingRequests = ["LookinCoolJoker", "Kat"];
+const suggestedFriends = ["Mika", "Jordan", "Ari", "Sasha"];
+
+function renderFriendsPage() {
+  const grid = document.getElementById("friends-grid");
+  const results = document.getElementById("friend-results");
+  const requests = document.getElementById("friend-requests");
+  const search = document.getElementById("friend-search");
+
+  if (!grid || !results || !requests || !search) return;
+
+  function drawFriends() {
+    grid.innerHTML = friendsData.map(name => `
+      <div class="friend">${name}</div>
+    `).join("");
+
+    const friendCount = document.getElementById("friend-count");
+      if (friendCount) {
+        friendCount.textContent = `${friendsData.length} Total`;
+      }
+  }
+
+  function drawRequests() {
+    requests.innerHTML = pendingRequests.map(name => `
+      <div class="friend-request-card">
+        <span>${name}</span>
+        <div>
+          <button class="accept-btn" data-name="${name}">Accept</button>
+          <button class="decline-btn" data-name="${name}">Decline</button>
+        </div>
+      </div>
+    `).join("");
+  }
+
+  function drawResults() {
+    const query = search.value.toLowerCase();
+
+    const filtered = suggestedFriends.filter(n =>
+      n.toLowerCase().includes(query)
+    );
+
+    results.innerHTML = filtered.map(name => `
+      <div class="friend-result-card">
+        <span>${name}</span>
+        <button class="add-btn">Add</button>
+      </div>
+    `).join("");
+  }
+
+  search.addEventListener("input", drawResults);
+
+  document.addEventListener("click", e => {
+    if (e.target.classList.contains("accept-btn")) {
+      const name = e.target.dataset.name;
+      friendsData.push(name);
+      pendingRequests = pendingRequests.filter(n => n !== name);
+      drawFriends();
+      drawRequests();
+    }
+
+    if (e.target.classList.contains("decline-btn")) {
+      const name = e.target.dataset.name;
+      pendingRequests = pendingRequests.filter(n => n !== name);
+      drawRequests();
+    }
+
+    if (e.target.classList.contains("add-btn")) {
+      e.target.textContent = "Sent";
+      e.target.disabled = true;
+    }
+  });
+
+  drawFriends();
+  drawRequests();
+  drawResults();
+}
+
 async function renderTrendingSection() {
   const container = document.getElementById('trending-wrapper');
   if (!container) return;
@@ -469,7 +547,6 @@ function initCarousel() {
   resetTimer();
 }
 
-loadCarousel();
 const trendingAnimeData = [
   {
     title: "Frieren: Beyond Journey's End",
@@ -1074,8 +1151,10 @@ window.addEventListener('DOMContentLoaded', () => {
   loadCarousel();
   renderProfilePage();
   renderBrowsePage();
+  renderFriendsPage();
   renderContinueWatching();
   renderTrendingSection();
+  
   bindQuickAddButtons();
   setupVoiceSearch();
   setupAIRecommend();
